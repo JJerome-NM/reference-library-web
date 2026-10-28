@@ -69,17 +69,17 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
       <div>
         <Link
           href="/journals"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-blue-600 transition-colors group cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-brand-text transition-colors group cursor-pointer"
         >
           <ArrowLeft className="size-3.5 group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
           <span>{t("backToJournals")}</span>
         </Link>
       </div>
 
-      <div className="bg-card rounded-2xl border border-border p-5 sm:p-6 shadow-xs space-y-6">
+      <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-5 sm:p-6 shadow-xs space-y-6">
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="p-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60">
+            <span className="p-2 rounded-xl bg-brand-subtle text-brand-text border border-brand-border">
               <BookOpen className="size-5" aria-hidden="true" />
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
@@ -101,7 +101,7 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
                 <button
                   type="button"
                   onClick={() => handleCopy(journal.printIssn!, "pissn")}
-                  className="hover:text-blue-600 text-muted-foreground cursor-pointer transition-colors"
+                  className="hover:text-brand-text text-muted-foreground cursor-pointer transition-colors"
                   aria-label="Copy print ISSN"
                 >
                   {copiedField === "pissn" ? (
@@ -114,15 +114,15 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
             )}
 
             {journal.onlineIssn && (
-              <div className="inline-flex items-center gap-1.5 bg-blue-50/70 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 px-2.5 py-1 rounded-lg border border-blue-200/60 dark:border-blue-800/60 font-mono text-[11px] whitespace-nowrap">
-                <span className="text-blue-600 dark:text-blue-500 font-sans font-bold text-[10px]">
+              <div className="inline-flex items-center gap-1.5 bg-brand-subtle text-brand-subtle-foreground px-2.5 py-1 rounded-lg border border-brand-border font-mono text-[11px] whitespace-nowrap">
+                <span className="text-brand-text font-sans font-bold text-[10px]">
                   {t("onlineIssn")}:
                 </span>
                 <span>{journal.onlineIssn}</span>
                 <button
                   type="button"
                   onClick={() => handleCopy(journal.onlineIssn!, "eissn")}
-                  className="hover:text-blue-800 text-blue-600 dark:text-blue-400 cursor-pointer transition-colors"
+                  className="hover:text-brand-text-hover text-brand-text cursor-pointer transition-colors"
                   aria-label="Copy online ISSN"
                 >
                   {copiedField === "eissn" ? (
@@ -137,12 +137,12 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-          <div className="p-3.5 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/60 text-center">
-            <span className="text-[10px] font-bold uppercase tracking-tight text-blue-700 dark:text-blue-400 flex items-center justify-center gap-1 block">
-              <Award className="size-3 text-blue-600 shrink-0" aria-hidden="true" />
+          <div className="p-3.5 rounded-xl bg-brand-subtle border border-brand-border text-center">
+            <span className="text-[10px] font-bold uppercase tracking-tight text-brand-subtle-foreground flex items-center justify-center gap-1 block">
+              <Award className="size-3 text-brand-text shrink-0" aria-hidden="true" />
               {t("academicIndex")}
             </span>
-            <span className="text-xl sm:text-2xl font-extrabold text-blue-700 dark:text-blue-400 font-mono tracking-tight block mt-1">
+            <span className="text-xl sm:text-2xl font-extrabold text-brand-subtle-foreground font-mono tracking-tight block mt-1">
               {formattedIndex}
             </span>
           </div>
@@ -222,7 +222,7 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
                   placeholder={t("searchIssues")}
                   value={issueSearch}
                   onChange={(e) => setIssueSearch(sanitizeString(e.target.value))}
-                  className="w-full h-9 pl-9 pr-3 bg-card border border-border rounded-xl text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-blue-500 shadow-2xs"
+                  className="w-full h-9 pl-9 pr-3 bg-well border border-well-border rounded-xl text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/30 shadow-2xs transition-all"
                 />
               </div>
 
@@ -234,12 +234,12 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
             </div>
 
             {filteredVersions.length === 0 ? (
-              <div className="bg-card rounded-2xl border border-border p-8 text-center space-y-2 shadow-xs">
+              <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-8 text-center space-y-2 shadow-xs">
                 <p className="text-xs font-bold text-foreground">{t("noIssuesFound")}</p>
                 <button
                   type="button"
                   onClick={() => setIssueSearch("")}
-                  className="text-xs text-blue-600 hover:underline font-semibold cursor-pointer"
+                  className="text-xs text-brand-text hover:text-brand-text-hover hover:underline font-semibold cursor-pointer"
                 >
                   {t("resetFilters")}
                 </button>
@@ -250,11 +250,11 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
                   return (
                     <div
                       key={version.doi || version.versionNumber}
-                      className="bg-card rounded-2xl border border-border p-5 shadow-xs hover:border-blue-200 dark:hover:border-blue-800 transition-all space-y-3"
+                      className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-5 shadow-xs hover:border-brand-border transition-all space-y-3"
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <span className="font-extrabold text-sm text-foreground flex items-center gap-2">
-                          <Layers className="size-4 text-blue-600" aria-hidden="true" />
+                          <Layers className="size-4 text-brand-text" aria-hidden="true" />
                           <span>
                             {t("issueNumber", { number: version.versionNumber ?? "—" })}
                           </span>
@@ -279,7 +279,7 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
                             href={`https://doi.org/${version.doi}`}
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="inline-flex items-center gap-1 font-mono text-xs text-blue-600 hover:text-blue-800 hover:underline font-semibold"
+                            className="inline-flex items-center gap-1 font-mono text-xs text-brand-text hover:text-brand-text-hover hover:underline font-semibold"
                           >
                             <span>{version.doi}</span>
                             <ExternalLink className="size-3" aria-hidden="true" />
@@ -288,9 +288,9 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
 
                         <Link
                           href={`/publications?journals=${encodeURIComponent(journal.title ?? "")}`}
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border border-border bg-card hover:bg-muted text-foreground transition-all shadow-2xs"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border border-border/80 bg-card/95 dark:bg-card/85 backdrop-blur-md hover:bg-muted/50 text-foreground transition-all shadow-2xs"
                         >
-                          <FileText className="size-3 text-blue-600" aria-hidden="true" />
+                          <FileText className="size-3 text-brand-text" aria-hidden="true" />
                           <span>{t("viewIssueArticles")}</span>
                         </Link>
                       </div>
@@ -303,7 +303,7 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
         )}
 
         {activeTab === "authors" && (
-          <div className="bg-card rounded-2xl border border-border shadow-xs overflow-hidden">
+          <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 shadow-xs overflow-hidden">
             {journal.authors.length === 0 ? (
               <div className="p-8 text-center text-xs text-muted-foreground space-y-2">
                 <Users className="size-8 mx-auto text-muted-foreground" aria-hidden="true" />
@@ -327,7 +327,7 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
                       <div className="space-y-1">
                         <Link
                           href={`/authors/${orcidPure}/details`}
-                          className="font-bold text-sm text-foreground hover:text-blue-600 hover:underline transition-colors block"
+                          className="font-bold text-sm text-foreground hover:text-brand-text hover:underline transition-colors block"
                         >
                           {fullName}
                         </Link>
@@ -344,12 +344,12 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
                       </div>
 
                       <div className="flex items-center gap-3">
-                        <span className="font-mono font-extrabold text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/60 px-2.5 py-0.5 rounded-md text-xs">
+                        <span className="font-mono font-extrabold text-brand-subtle-foreground bg-brand-subtle border border-brand-border px-2.5 py-0.5 rounded-md text-xs shadow-2xs">
                           {formattedAuthIndex}
                         </span>
                         <Link
                           href={`/authors/${orcidPure}/details`}
-                          className="text-xs font-semibold text-muted-foreground hover:text-blue-600"
+                          className="text-xs font-semibold text-muted-foreground hover:text-brand-text transition-colors"
                         >
                           {t("about")}
                         </Link>
@@ -363,7 +363,7 @@ export function JournalDetailsView({ data }: JournalDetailsViewProps) {
         )}
 
         {activeTab === "about" && (
-          <div className="bg-card rounded-2xl border border-border p-6 shadow-xs space-y-4 text-xs leading-relaxed text-muted-foreground">
+          <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-6 shadow-xs space-y-4 text-xs leading-relaxed text-muted-foreground">
             <h2 className="text-sm font-bold text-foreground">
               {t("metricOverview")}
             </h2>

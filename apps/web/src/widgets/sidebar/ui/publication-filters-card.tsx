@@ -43,13 +43,13 @@ export function PublicationFiltersCard() {
     <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-3.5 shadow-xs space-y-3.5">
       <div className="flex items-center justify-between pb-2 border-b border-border/50">
         <span className="text-[11px] font-extrabold uppercase tracking-wider text-foreground flex items-center gap-2">
-          <SlidersHorizontal className="size-3.5 text-blue-600 dark:text-blue-400" aria-hidden="true" />
+          <SlidersHorizontal className="size-3.5 text-brand-text" aria-hidden="true" />
           <span>{tCommon("searchFilters")}</span>
         </span>
         <button
           type="button"
           onClick={clearAll}
-          className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold transition-colors cursor-pointer"
+          className="text-xs text-brand-text hover:text-brand-text-hover font-semibold transition-colors cursor-pointer hover:underline"
         >
           {tCommon("clear")}
         </button>
@@ -61,14 +61,14 @@ export function PublicationFiltersCard() {
           <span>{t("yearRange")}</span>
         </label>
 
-        <div className="flex items-center gap-1 p-1 rounded-xl bg-muted/30 dark:bg-muted/20 border border-border/40">
+        <div className="flex items-center gap-1 p-1 rounded-xl bg-well border border-well-border">
           <button
             type="button"
             onClick={() => updateParams({ from: null, to: null, page: null })}
             className={cn(
               "flex-1 py-1 text-xs rounded-lg transition-all text-center cursor-pointer select-none",
               isAllYearsActive
-                ? "bg-blue-600 text-white font-semibold shadow-2xs"
+                ? "bg-brand text-brand-foreground font-semibold shadow-2xs"
                 : "text-muted-foreground hover:text-foreground hover:bg-background/40 font-medium"
             )}
           >
@@ -80,7 +80,7 @@ export function PublicationFiltersCard() {
             className={cn(
               "flex-1 py-1 text-xs rounded-lg transition-all text-center cursor-pointer select-none",
               isCurrentYearActive
-                ? "bg-blue-600 text-white font-semibold shadow-2xs"
+                ? "bg-brand text-brand-foreground font-semibold shadow-2xs"
                 : "text-muted-foreground hover:text-foreground hover:bg-background/40 font-medium"
             )}
           >
@@ -92,7 +92,7 @@ export function PublicationFiltersCard() {
             className={cn(
               "flex-1 py-1 text-xs rounded-lg transition-all text-center cursor-pointer select-none",
               isThreeYearsActive
-                ? "bg-blue-600 text-white font-semibold shadow-2xs"
+                ? "bg-brand text-brand-foreground font-semibold shadow-2xs"
                 : "text-muted-foreground hover:text-foreground hover:bg-background/40 font-medium"
             )}
           >
@@ -109,7 +109,7 @@ export function PublicationFiltersCard() {
               const val = e.target.value ? parseInt(e.target.value, 10) : null
               updateParams({ from: val, page: null })
             }}
-            className="w-full h-7 px-2.5 text-xs font-mono rounded-lg border border-border/60 text-foreground placeholder:text-muted-foreground/60 bg-muted/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all"
+            className="w-full h-7 px-2.5 text-xs font-mono rounded-lg border border-well-border text-foreground placeholder:text-muted-foreground/60 bg-well focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/30 transition-all"
           />
           <input
             type="number"
@@ -119,7 +119,7 @@ export function PublicationFiltersCard() {
               const val = e.target.value ? parseInt(e.target.value, 10) : null
               updateParams({ to: val, page: null })
             }}
-            className="w-full h-7 px-2.5 text-xs font-mono rounded-lg border border-border/60 text-foreground placeholder:text-muted-foreground/60 bg-muted/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all"
+            className="w-full h-7 px-2.5 text-xs font-mono rounded-lg border border-well-border text-foreground placeholder:text-muted-foreground/60 bg-well focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/30 transition-all"
           />
         </div>
       </div>
@@ -139,7 +139,7 @@ export function PublicationFiltersCard() {
                 className={cn(
                   "flex items-center justify-between py-1 px-1.5 rounded-lg transition-colors cursor-pointer select-none",
                   isSelected
-                    ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 font-semibold"
+                    ? "bg-brand-subtle text-brand-subtle-foreground border border-brand-border font-semibold"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
                 )}
               >
@@ -157,7 +157,7 @@ export function PublicationFiltersCard() {
                   className={cn(
                     "text-[11px] font-mono shrink-0",
                     isSelected
-                      ? "text-blue-600 dark:text-blue-400 font-bold"
+                      ? "text-brand-text font-bold"
                       : "text-muted-foreground/60"
                   )}
                 >

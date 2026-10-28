@@ -12,9 +12,9 @@ export function ContactsCard() {
       </span>
       <a
         href={`mailto:${EXTERNAL_LINKS.SUPPORT_EMAIL}`}
-        className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
+        className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-muted-foreground hover:text-brand-text hover:bg-muted/40 transition-colors group"
       >
-        <Mail className="size-3.5 text-muted-foreground shrink-0" aria-hidden="true" />
+        <Mail className="size-3.5 text-muted-foreground group-hover:text-brand-text shrink-0 transition-colors" aria-hidden="true" />
         <span className="font-mono text-xs truncate">
           {EXTERNAL_LINKS.SUPPORT_EMAIL}
         </span>

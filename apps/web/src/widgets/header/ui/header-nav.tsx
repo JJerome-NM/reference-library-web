@@ -21,7 +21,7 @@ export function HeaderNav() {
         className={cn(
           "px-3 py-1.5 rounded-lg transition-colors",
           isPublicationsActive
-            ? "text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 font-bold"
+            ? "text-brand-subtle-foreground bg-brand-subtle border border-brand-border font-bold"
             : "hover:text-foreground hover:bg-muted"
         )}
       >
@@ -32,7 +32,7 @@ export function HeaderNav() {
         className={cn(
           "px-3 py-1.5 rounded-lg transition-colors",
           isAuthorsActive
-            ? "text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 font-bold"
+            ? "text-brand-subtle-foreground bg-brand-subtle border border-brand-border font-bold"
             : "hover:text-foreground hover:bg-muted"
         )}
       >
@@ -43,7 +43,7 @@ export function HeaderNav() {
         className={cn(
           "px-3 py-1.5 rounded-lg transition-colors",
           isJournalsActive
-            ? "text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 font-bold"
+            ? "text-brand-subtle-foreground bg-brand-subtle border border-brand-border font-bold"
             : "hover:text-foreground hover:bg-muted"
         )}
       >
@@ -54,7 +54,7 @@ export function HeaderNav() {
         className={cn(
           "px-3 py-1.5 rounded-lg transition-colors",
           isInstitutionsActive
-            ? "text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 font-bold"
+            ? "text-brand-subtle-foreground bg-brand-subtle border border-brand-border font-bold"
             : "hover:text-foreground hover:bg-muted"
         )}
       >

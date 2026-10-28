@@ -34,21 +34,21 @@ function OrcidIcon() {
 function getRankBadge(rank: number | null) {
   if (rank === 1) {
     return (
-      <span className="inline-flex items-center justify-center size-6 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-200/80 font-mono font-extrabold text-[11px]">
+      <span className="inline-flex items-center justify-center size-6 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-mono font-extrabold text-[11px] shadow-2xs">
         1
       </span>
     )
   }
   if (rank === 2) {
     return (
-      <span className="inline-flex items-center justify-center size-6 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 font-mono font-extrabold text-[11px]">
+      <span className="inline-flex items-center justify-center size-6 rounded-full bg-slate-500/10 text-slate-700 dark:text-slate-300 border border-slate-500/30 font-mono font-extrabold text-[11px] shadow-2xs">
         2
       </span>
     )
   }
   if (rank === 3) {
     return (
-      <span className="inline-flex items-center justify-center size-6 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 border border-amber-300/60 font-mono font-extrabold text-[11px]">
+      <span className="inline-flex items-center justify-center size-6 rounded-full bg-amber-700/10 text-amber-700 dark:text-amber-300 border border-amber-600/30 font-mono font-extrabold text-[11px] shadow-2xs">
         3
       </span>
     )
@@ -141,21 +141,23 @@ export function AuthorsTable() {
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
         <div className="flex flex-wrap items-center gap-2.5">
-          <h1 className="text-base font-bold text-foreground flex items-center gap-2">
-            <Users className="size-4 text-blue-600" aria-hidden="true" />
+          <div className="size-8 rounded-xl bg-brand-subtle border border-brand-border flex items-center justify-center text-brand-text shadow-2xs shrink-0">
+            <Users className="size-4" aria-hidden="true" />
+          </div>
+          <h1 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
             {t("title")}
           </h1>
-          <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60">
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-brand-subtle text-brand-subtle-foreground border border-brand-border shadow-2xs">
             {t("foundTotal", { count: totalElements })}
           </span>
           {isFetching && (
-            <span className="size-2 rounded-full bg-blue-600 animate-ping" aria-hidden="true" />
+            <span className="size-2 rounded-full bg-brand animate-ping" aria-hidden="true" />
           )}
         </div>
 
         <div className="flex flex-wrap items-center justify-between sm:justify-end gap-2.5 w-full sm:w-auto">
-          <div className="flex items-center gap-2 text-xs">
-            <span className="text-muted-foreground font-medium">{t("sorting")}</span>
+          <div className="flex items-center gap-2 bg-card/95 dark:bg-card/85 backdrop-blur-md border border-border/80 rounded-xl px-3 py-1 shadow-2xs text-xs">
+            <span className="text-muted-foreground font-medium shrink-0">{t("sorting")}</span>
             <Select
               selectedKey={sortOption}
               onSelectionChange={(key) => {
@@ -183,10 +185,10 @@ export function AuthorsTable() {
           <a
             href="/api/authors/download/excel"
             download="authors.xlsx"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border bg-card hover:bg-muted text-foreground text-xs font-semibold transition-all shadow-2xs active:scale-95 group shrink-0"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border/80 bg-card/95 dark:bg-card/85 backdrop-blur-md hover:bg-muted/50 text-foreground text-xs font-semibold transition-all shadow-2xs active:scale-95 group shrink-0"
           >
             <FileSpreadsheet
-              className="size-3.5 text-emerald-600 group-hover:scale-110 transition-transform"
+              className="size-3.5 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform"
               aria-hidden="true"
             />
             <span>{t("downloadExcel")}</span>
@@ -196,13 +198,13 @@ export function AuthorsTable() {
 
       {pills.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5 px-1 text-xs">
-          <span className="text-[11px] text-muted-foreground font-medium">
+          <span className="text-xs text-muted-foreground font-medium">
             {t("activeFilters")}
           </span>
           {pills.map((pill) => (
             <span
               key={pill.id}
-              className="inline-flex items-center gap-1 bg-card border border-border text-foreground px-2 py-0.5 rounded-md text-[11px] font-semibold shadow-2xs"
+              className="inline-flex items-center gap-1.5 bg-muted/40 dark:bg-muted/20 border border-border/70 text-foreground px-2.5 py-1 rounded-lg text-xs font-medium shadow-2xs"
             >
               <span className="line-clamp-1 max-w-[200px]">{pill.label}</span>
               <button
@@ -211,14 +213,14 @@ export function AuthorsTable() {
                 className="hover:text-foreground text-muted-foreground cursor-pointer"
                 aria-label={`Remove filter ${pill.label}`}
               >
-                <X className="size-2.5" aria-hidden="true" />
+                <X className="size-3" aria-hidden="true" />
               </button>
             </span>
           ))}
           <button
             type="button"
             onClick={clearAll}
-            className="text-[11px] text-blue-600 hover:text-blue-800 font-semibold ml-1 cursor-pointer"
+            className="text-xs text-brand-text hover:text-brand-text-hover font-semibold ml-1 cursor-pointer hover:underline"
           >
             {t("clearAll")}
           </button>
@@ -226,7 +228,7 @@ export function AuthorsTable() {
       )}
 
       {isLoading ? (
-        <div className="bg-card rounded-2xl border border-border shadow-xs overflow-hidden p-6 space-y-4">
+        <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 shadow-xs overflow-hidden p-6 space-y-4">
           {Array.from({ length: 6 }).map((_, idx) => (
             <div
               key={idx}
@@ -236,7 +238,7 @@ export function AuthorsTable() {
           ))}
         </div>
       ) : isError ? (
-        <div className="bg-card rounded-2xl border border-destructive/30 p-12 text-center space-y-3 shadow-xs">
+        <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-destructive/30 p-12 text-center space-y-3 shadow-xs">
           <div className="flex justify-center text-destructive">
             <AlertCircle className="size-10" aria-hidden="true" />
           </div>
@@ -249,14 +251,14 @@ export function AuthorsTable() {
           <button
             type="button"
             onClick={() => refetch()}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors shadow-2xs cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand text-brand-foreground text-xs font-semibold hover:bg-brand-hover transition-colors shadow-2xs cursor-pointer"
           >
             <RotateCw className="size-3.5" aria-hidden="true" />
             <span>Спробувати знову</span>
           </button>
         </div>
       ) : authors.length === 0 ? (
-        <div className="bg-card rounded-2xl border border-border p-12 text-center space-y-3 shadow-xs">
+        <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-12 text-center space-y-3 shadow-xs">
           <div className="flex justify-center text-muted-foreground">
             <UserX className="size-10" aria-hidden="true" />
           </div>
@@ -267,17 +269,17 @@ export function AuthorsTable() {
           <button
             type="button"
             onClick={clearAll}
-            className="inline-flex items-center px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors shadow-2xs cursor-pointer"
+            className="inline-flex items-center px-4 py-2 rounded-xl bg-brand text-brand-foreground text-xs font-semibold hover:bg-brand-hover transition-colors shadow-2xs cursor-pointer"
           >
             {t("resetFilters")}
           </button>
         </div>
       ) : (
-        <div className="bg-card rounded-2xl border border-border shadow-xs overflow-hidden">
+        <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 shadow-xs overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[580px]" aria-label={t("title")}>
               <thead>
-                <tr className="bg-muted/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                <tr className="bg-well border-b border-border/70 text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
                   <th scope="col" className="py-3.5 pl-5 pr-3 w-16 text-center">{t("tableRank")}</th>
                   <th scope="col" className="py-3.5 px-4">{t("tableResearcher")}</th>
                   <th scope="col" className="py-3.5 px-4">{t("tableOrcid")}</th>
@@ -306,7 +308,7 @@ export function AuthorsTable() {
                       <td className="py-3.5 px-4">
                         <Link
                           href={`/authors/${orcidPure}/details`}
-                          className="font-bold text-foreground hover:text-blue-600 hover:underline transition-colors block text-sm"
+                          className="font-bold text-foreground hover:text-brand-text hover:underline transition-colors block text-sm"
                         >
                           {fullName}
                         </Link>
@@ -316,7 +318,7 @@ export function AuthorsTable() {
                           href={author.orcid}
                           target="_blank"
                           rel="noreferrer noopener"
-                          className="inline-flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground hover:text-foreground bg-muted/40 hover:bg-muted px-2 py-1 rounded-md border border-border/70 transition-colors"
+                          className="inline-flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground hover:text-foreground bg-well hover:bg-muted/50 px-2 py-1 rounded-md border border-well-border transition-colors"
                         >
                           <OrcidIcon />
                           <span>{orcidPure}</span>
@@ -324,14 +326,14 @@ export function AuthorsTable() {
                         </a>
                       </td>
                       <td className="py-3.5 px-4 text-right">
-                        <span className="inline-block font-mono font-extrabold text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/60 px-2.5 py-0.5 rounded-md text-xs">
+                        <span className="inline-block font-mono font-extrabold text-brand-subtle-foreground bg-brand-subtle border border-brand-border px-2.5 py-0.5 rounded-md text-xs shadow-2xs">
                           {formattedIndex}
                         </span>
                       </td>
                       <td className="py-3.5 pr-5 pl-4 text-right">
                         <Link
                           href={`/authors/${orcidPure}/details`}
-                          className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground hover:text-blue-600 transition-colors"
+                          className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground hover:text-brand-text transition-colors"
                         >
                           <span>{t("profile")}</span>
                           <ChevronRight className="size-3" aria-hidden="true" />

@@ -89,18 +89,18 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
       <div>
         <Link
           href="/institutions"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-blue-600 transition-colors group cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-brand-text transition-colors group cursor-pointer"
         >
           <ArrowLeft className="size-3.5 group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
           <span>{t("backToInstitutions")}</span>
         </Link>
       </div>
 
-      <div className="bg-card rounded-2xl border border-border p-5 sm:p-6 shadow-xs space-y-6">
+      <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-5 sm:p-6 shadow-xs space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6">
           <div className="space-y-3 flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <span className="p-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60">
+              <span className="p-2 rounded-xl bg-brand-subtle text-brand-text border border-brand-border">
                 <Building2 className="size-5" aria-hidden="true" />
               </span>
               <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
@@ -120,7 +120,7 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
 
             <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
               <span className="inline-flex items-center gap-1.5 bg-muted/60 text-foreground px-2.5 py-1 rounded-lg border border-border/80 font-medium text-[11px] whitespace-nowrap">
-                <Globe className="size-3 text-blue-600" aria-hidden="true" />
+                <Globe className="size-3 text-brand-text" aria-hidden="true" />
                 <span>{institution.country || "—"}</span>
               </span>
 
@@ -130,7 +130,7 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
                     href={institution.url}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="font-medium text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
+                    className="font-medium text-brand-text hover:text-brand-text-hover hover:underline inline-flex items-center gap-1"
                   >
                     <span>{t("website")}</span>
                     <ExternalLink className="size-3" aria-hidden="true" />
@@ -153,12 +153,12 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
           </div>
 
           <div className="flex flex-row sm:flex-col gap-3 shrink-0 w-full sm:w-auto">
-            <div className="flex-1 sm:flex-none p-3.5 sm:p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/60 min-w-[120px] sm:min-w-[140px] text-center">
-              <div className="flex items-center justify-center gap-1 text-[11px] font-bold text-blue-700 dark:text-blue-400 uppercase tracking-tight">
-                <TrendingUp className="size-3.5" aria-hidden="true" />
+            <div className="flex-1 sm:flex-none p-3.5 sm:p-4 rounded-xl bg-brand-subtle border border-brand-border min-w-[120px] sm:min-w-[140px] text-center">
+              <div className="flex items-center justify-center gap-1 text-[11px] font-bold text-brand-subtle-foreground uppercase tracking-tight">
+                <TrendingUp className="size-3.5 text-brand-text" aria-hidden="true" />
                 <span>{t("academicIndex")}</span>
               </div>
-              <span className="text-2xl font-black text-blue-700 dark:text-blue-400 font-mono tracking-tight block mt-1">
+              <span className="text-2xl font-black text-brand-subtle-foreground font-mono tracking-tight block mt-1">
                 {formattedIndex}
               </span>
             </div>
@@ -209,7 +209,7 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
                 value={authorSearch}
                 onChange={(e) => setAuthorSearch(sanitizeString(e.target.value))}
                 placeholder={t("searchAuthors")}
-                className="w-full h-8 pl-8 pr-3 text-xs font-medium rounded-lg border border-border bg-muted/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-blue-500"
+                className="w-full h-8 pl-8 pr-3 text-xs font-medium rounded-lg border border-well-border bg-well text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/30 transition-all"
               />
             </div>
 
@@ -238,7 +238,7 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
           </div>
 
           {filteredAuthors.length === 0 ? (
-            <div className="bg-card rounded-2xl border border-border p-10 text-center space-y-2 shadow-xs">
+            <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-10 text-center space-y-2 shadow-xs">
               <Users className="size-8 text-muted-foreground mx-auto" aria-hidden="true" />
               <p className="text-sm font-semibold text-foreground">
                 {t("noAuthorsFound")}
@@ -257,13 +257,13 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
                 return (
                   <div
                     key={author.orcid}
-                    className="bg-card rounded-xl border border-border p-4 shadow-xs hover:border-blue-300 dark:hover:border-blue-800 transition-all space-y-3 group"
+                    className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-xl border border-border/80 p-4 shadow-xs hover:border-brand-border transition-all space-y-3 group"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="space-y-1">
                         <Link
                           href={`/authors/${orcidClean}`}
-                          className="font-bold text-sm text-foreground hover:text-blue-600 transition-colors block line-clamp-1 group-hover:text-blue-600"
+                          className="font-bold text-sm text-foreground hover:text-brand-text-hover transition-colors block line-clamp-1 group-hover:text-brand-text-hover"
                         >
                           {authorFullName || "—"}
                         </Link>
@@ -295,7 +295,7 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
                       </div>
 
                       <div className="shrink-0 text-right">
-                        <span className="inline-block font-mono font-extrabold text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/60 px-2 py-0.5 rounded-md text-xs">
+                        <span className="inline-block font-mono font-extrabold text-brand-subtle-foreground bg-brand-subtle border border-brand-border px-2 py-0.5 rounded-md text-xs shadow-2xs">
                           {authorIndexFormatted}
                         </span>
                       </div>
@@ -309,7 +309,7 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
 
                       <Link
                         href={`/authors/${orcidClean}`}
-                        className="text-blue-600 hover:underline font-semibold"
+                        className="text-brand-text hover:text-brand-text-hover hover:underline font-semibold"
                       >
                         {t("viewDetails")}
                       </Link>
@@ -323,9 +323,9 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
       )}
 
       {activeTab === "about" && (
-        <div className="bg-card rounded-2xl border border-border p-6 shadow-xs space-y-4">
+        <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-6 shadow-xs space-y-4">
           <div className="flex items-center gap-2">
-            <Info className="size-4 text-blue-600" aria-hidden="true" />
+            <Info className="size-4 text-brand-text" aria-hidden="true" />
             <h2 className="text-sm font-bold text-foreground">
               {t("aboutInstitution")}
             </h2>
@@ -367,7 +367,7 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
                   href={institution.url}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="font-semibold text-blue-600 hover:underline inline-flex items-center gap-1"
+                  className="font-semibold text-brand-text hover:text-brand-text-hover hover:underline inline-flex items-center gap-1"
                 >
                   <span>{institution.url}</span>
                   <ExternalLink className="size-3" aria-hidden="true" />

@@ -125,18 +125,18 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
       <div>
         <Link
           href="/authors"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-blue-600 transition-colors group cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-brand-text transition-colors group cursor-pointer"
         >
           <ArrowLeft className="size-3.5 group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
           <span>{t("backToAuthors")}</span>
         </Link>
       </div>
 
-      <div className="bg-card rounded-2xl border border-border p-6 shadow-xs space-y-6">
+      <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-6 shadow-xs space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="flex items-start sm:items-center gap-4 min-w-0">
             <div className="relative shrink-0">
-              <div className="size-16 sm:size-20 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-black text-xl sm:text-2xl shadow-sm border-2 border-border/40 select-none">
+              <div className="size-16 sm:size-20 rounded-2xl bg-gradient-to-br from-brand to-indigo-700 text-white flex items-center justify-center font-black text-xl sm:text-2xl shadow-sm border-2 border-border/40 select-none">
                 {initials}
               </div>
               <span
@@ -197,12 +197,12 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="p-3.5 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/60 text-center">
-            <div className="flex items-center justify-center gap-1 text-[10px] font-bold text-blue-700 dark:text-blue-400 uppercase tracking-tight">
-              <TrendingUp className="size-3 shrink-0" aria-hidden="true" />
+          <div className="p-3.5 rounded-xl bg-brand-subtle border border-brand-border text-center">
+            <div className="flex items-center justify-center gap-1 text-[10px] font-bold text-brand-subtle-foreground uppercase tracking-tight">
+              <TrendingUp className="size-3 shrink-0 text-brand-text" aria-hidden="true" />
               <span>{t("academicIndex")}</span>
             </div>
-            <span className="text-xl sm:text-2xl font-black text-blue-700 dark:text-blue-400 font-mono tracking-tight block mt-1">
+            <span className="text-xl sm:text-2xl font-black text-brand-subtle-foreground font-mono tracking-tight block mt-1">
               {formattedIndex}
             </span>
           </div>
@@ -294,7 +294,7 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
                 value={pubSearch}
                 onChange={(e) => setPubSearch(sanitizeString(e.target.value))}
                 placeholder={t("searchPublications")}
-                className="w-full h-8 pl-8 pr-3 text-xs font-medium rounded-lg border border-border bg-muted/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-blue-500"
+                className="w-full h-8 pl-8 pr-3 text-xs font-medium rounded-lg border border-well-border bg-well text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/30 transition-all"
               />
             </div>
 
@@ -340,22 +340,22 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
                 return (
                   <article
                     key={pub.doi || pub.name}
-                    className="bg-card rounded-2xl border border-border p-5 shadow-xs hover:border-blue-300 dark:hover:border-blue-800 transition-all space-y-3 group"
+                    className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-5 shadow-xs hover:border-brand-border transition-all space-y-3 group"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                       <div className="space-y-1.5 flex-1">
-                        <h2 className="text-sm sm:text-base font-bold text-foreground leading-snug group-hover:text-blue-600 transition-colors">
+                        <h2 className="text-sm sm:text-base font-bold text-foreground leading-snug group-hover:text-brand-text-hover transition-colors">
                           {pub.name}
                         </h2>
 
                         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                           {journalTitle && (
                             <span className="inline-flex items-center gap-1 font-semibold text-foreground bg-muted/60 px-2 py-0.5 rounded-md border border-border/80 text-[11px]">
-                              <BookOpen className="size-3 text-blue-600" aria-hidden="true" />
+                              <BookOpen className="size-3 text-brand-text" aria-hidden="true" />
                               {journalIssn ? (
                                 <Link
                                   href={`/journals/${encodeURIComponent(journalIssn)}`}
-                                  className="hover:underline hover:text-blue-600"
+                                  className="hover:underline hover:text-brand-text-hover"
                                 >
                                   {journalTitle}
                                 </Link>
@@ -379,7 +379,7 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
                                 href={`https://doi.org/${doiClean}`}
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                className="text-blue-600 hover:underline"
+                                className="text-brand-text hover:text-brand-text-hover hover:underline"
                               >
                                 {doiClean}
                               </a>
@@ -401,8 +401,8 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
                       </div>
 
                       <div className="flex items-center sm:items-end sm:flex-col gap-1.5 shrink-0">
-                        <span className="inline-flex items-center gap-1 font-mono font-bold text-xs bg-blue-50/80 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60 px-2.5 py-1 rounded-lg">
-                          <Quote className="size-3 text-blue-600" aria-hidden="true" />
+                        <span className="inline-flex items-center gap-1 font-mono font-bold text-xs bg-brand-subtle text-brand-subtle-foreground border border-brand-border px-2.5 py-1 rounded-lg shadow-2xs">
+                          <Quote className="size-3 text-brand-text" aria-hidden="true" />
                           <span>{pub.totalCitations ?? 0}</span>
                         </span>
                         <span className="text-[10px] text-muted-foreground uppercase font-semibold">
@@ -424,7 +424,7 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
                               {authCleanOrcid ? (
                                 <Link
                                   href={`/authors/${authCleanOrcid}`}
-                                  className="text-foreground hover:text-blue-600 font-semibold hover:underline"
+                                  className="text-foreground hover:text-brand-text font-semibold hover:underline"
                                 >
                                   {authName || authCleanOrcid}
                                 </Link>
@@ -467,13 +467,13 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
                 return (
                   <div
                     key={coAuth.orcid}
-                    className="bg-card rounded-xl border border-border p-4 shadow-xs hover:border-blue-300 dark:hover:border-blue-800 transition-all space-y-3 group"
+                    className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-xl border border-border/80 p-4 shadow-xs hover:border-brand-border transition-all space-y-3 group"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="space-y-1">
                         <Link
                           href={`/authors/${coCleanOrcid}`}
-                          className="font-bold text-sm text-foreground hover:text-blue-600 transition-colors block line-clamp-1 group-hover:text-blue-600"
+                          className="font-bold text-sm text-foreground hover:text-brand-text-hover transition-colors block line-clamp-1 group-hover:text-brand-text-hover"
                         >
                           {coFullName || coCleanOrcid}
                         </Link>
@@ -485,7 +485,7 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
                         )}
                       </div>
 
-                      <span className="inline-block font-mono font-extrabold text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/60 px-2 py-0.5 rounded-md text-xs shrink-0">
+                      <span className="inline-block font-mono font-extrabold text-brand-subtle-foreground bg-brand-subtle border border-brand-border px-2 py-0.5 rounded-md text-xs shrink-0 shadow-2xs">
                         {coIndex}
                       </span>
                     </div>
@@ -498,7 +498,7 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
                       </span>
                       <Link
                         href={`/authors/${coCleanOrcid}`}
-                        className="text-blue-600 hover:underline font-semibold"
+                        className="text-brand-text hover:text-brand-text-hover hover:underline font-semibold"
                       >
                         {t("profile")}
                       </Link>
@@ -525,11 +525,11 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
               {uniqueJournals.map((jr) => (
                 <div
                   key={jr.issn || jr.title}
-                  className="bg-card rounded-xl border border-border p-4 shadow-xs space-y-3 hover:border-blue-300 dark:hover:border-blue-800 transition-all group"
+                  className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-xl border border-border/80 p-4 shadow-xs space-y-3 hover:border-brand-border transition-all group"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="space-y-1">
-                      <h3 className="font-bold text-sm text-foreground group-hover:text-blue-600 transition-colors">
+                      <h3 className="font-bold text-sm text-foreground group-hover:text-brand-text-hover transition-colors">
                         {jr.title}
                       </h3>
                       {jr.issn && (
@@ -547,7 +547,7 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
                     <div className="pt-2 border-t border-border/60 text-right">
                       <Link
                         href={`/journals/${encodeURIComponent(jr.issn)}`}
-                        className="text-xs text-blue-600 hover:underline font-semibold inline-flex items-center gap-1"
+                        className="text-xs text-brand-text hover:text-brand-text-hover hover:underline font-semibold inline-flex items-center gap-1"
                       >
                         <span>{t("viewJournal")}</span>
                         <ExternalLink className="size-3" aria-hidden="true" />
@@ -562,9 +562,9 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
       )}
 
       {activeTab === "metrics" && (
-        <div className="bg-card rounded-2xl border border-border p-6 shadow-xs space-y-5">
+        <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-2xl border border-border/80 p-6 shadow-xs space-y-5">
           <div className="flex items-center gap-2">
-            <GraduationCap className="size-5 text-blue-600" aria-hidden="true" />
+            <GraduationCap className="size-5 text-brand-text" aria-hidden="true" />
             <h2 className="text-base font-bold text-foreground">
               {t("verifiedProfile")}
             </h2>
@@ -579,7 +579,7 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
               <span className="text-[10px] font-bold uppercase text-muted-foreground block">
                 {t("academicIndex")}
               </span>
-              <span className="text-lg font-black font-mono text-blue-600 dark:text-blue-400 block">
+              <span className="text-lg font-black font-mono text-brand-text block">
                 {formattedIndex}
               </span>
               <span className="text-[11px] text-muted-foreground">

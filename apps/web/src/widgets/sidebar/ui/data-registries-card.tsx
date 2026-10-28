@@ -26,7 +26,7 @@ export function DataRegistriesCard() {
         className={cn(
           "flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors",
           isPublicationsActive
-            ? "bg-blue-600/15 text-blue-600 dark:text-blue-400 font-semibold"
+            ? "bg-brand-subtle text-brand-subtle-foreground border border-brand-border font-semibold"
             : "text-muted-foreground hover:text-foreground hover:bg-muted/40 font-medium"
         )}
       >
@@ -34,7 +34,7 @@ export function DataRegistriesCard() {
           <FileText
             className={cn(
               "size-3.5 shrink-0",
-              isPublicationsActive ? "text-blue-600 dark:text-blue-400" : "text-muted-foreground"
+              isPublicationsActive ? "text-brand-text" : "text-muted-foreground"
             )}
             aria-hidden="true"
           />
@@ -44,7 +44,7 @@ export function DataRegistriesCard() {
           className={cn(
             "text-[11px] font-mono",
             isPublicationsActive
-              ? "text-blue-600 dark:text-blue-400 font-bold"
+              ? "text-brand-text font-bold"
               : "text-muted-foreground/60"
           )}
         >
@@ -57,7 +57,7 @@ export function DataRegistriesCard() {
         className={cn(
           "flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors",
           isAuthorsActive
-            ? "bg-blue-600/15 text-blue-600 dark:text-blue-400 font-semibold"
+            ? "bg-brand-subtle text-brand-subtle-foreground border border-brand-border font-semibold"
             : "text-muted-foreground hover:text-foreground hover:bg-muted/40 font-medium"
         )}
       >
@@ -65,7 +65,7 @@ export function DataRegistriesCard() {
           <Users
             className={cn(
               "size-3.5 shrink-0",
-              isAuthorsActive ? "text-blue-600 dark:text-blue-400" : "text-muted-foreground"
+              isAuthorsActive ? "text-brand-text" : "text-muted-foreground"
             )}
             aria-hidden="true"
           />
@@ -75,7 +75,7 @@ export function DataRegistriesCard() {
           className={cn(
             "text-[11px] font-mono",
             isAuthorsActive
-              ? "text-blue-600 dark:text-blue-400 font-bold"
+              ? "text-brand-text font-bold"
               : "text-muted-foreground/60"
           )}
         >
@@ -88,7 +88,7 @@ export function DataRegistriesCard() {
         className={cn(
           "flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors",
           isJournalsActive
-            ? "bg-blue-600/15 text-blue-600 dark:text-blue-400 font-semibold"
+            ? "bg-brand-subtle text-brand-subtle-foreground border border-brand-border font-semibold"
             : "text-muted-foreground hover:text-foreground hover:bg-muted/40 font-medium"
         )}
       >
@@ -96,7 +96,7 @@ export function DataRegistriesCard() {
           <BookOpen
             className={cn(
               "size-3.5 shrink-0",
-              isJournalsActive ? "text-blue-600 dark:text-blue-400" : "text-muted-foreground"
+              isJournalsActive ? "text-brand-text" : "text-muted-foreground"
             )}
             aria-hidden="true"
           />
@@ -106,7 +106,7 @@ export function DataRegistriesCard() {
           className={cn(
             "text-[11px] font-mono",
             isJournalsActive
-              ? "text-blue-600 dark:text-blue-400 font-bold"
+              ? "text-brand-text font-bold"
               : "text-muted-foreground/60"
           )}
         >
@@ -119,7 +119,7 @@ export function DataRegistriesCard() {
         className={cn(
           "flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors",
           isInstitutionsActive
-            ? "bg-blue-600/15 text-blue-600 dark:text-blue-400 font-semibold"
+            ? "bg-brand-subtle text-brand-subtle-foreground border border-brand-border font-semibold"
             : "text-muted-foreground hover:text-foreground hover:bg-muted/40 font-medium"
         )}
       >
@@ -127,7 +127,7 @@ export function DataRegistriesCard() {
           <Building2
             className={cn(
               "size-3.5 shrink-0",
-              isInstitutionsActive ? "text-blue-600 dark:text-blue-400" : "text-muted-foreground"
+              isInstitutionsActive ? "text-brand-text" : "text-muted-foreground"
             )}
             aria-hidden="true"
           />
@@ -137,7 +137,7 @@ export function DataRegistriesCard() {
           className={cn(
             "text-[11px] font-mono",
             isInstitutionsActive
-              ? "text-blue-600 dark:text-blue-400 font-bold"
+              ? "text-brand-text font-bold"
               : "text-muted-foreground/60"
           )}
         >

@@ -65,7 +65,7 @@ export function HeaderMobileMenu() {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors",
                 isPublicationsActive
-                  ? "text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 font-bold"
+                  ? "text-brand-subtle-foreground bg-brand-subtle border border-brand-border font-bold"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
@@ -77,7 +77,7 @@ export function HeaderMobileMenu() {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors",
                 isAuthorsActive
-                  ? "text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 font-bold"
+                  ? "text-brand-subtle-foreground bg-brand-subtle border border-brand-border font-bold"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
@@ -89,7 +89,7 @@ export function HeaderMobileMenu() {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors",
                 isJournalsActive
-                  ? "text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 font-bold"
+                  ? "text-brand-subtle-foreground bg-brand-subtle border border-brand-border font-bold"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
@@ -101,7 +101,7 @@ export function HeaderMobileMenu() {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors",
                 isInstitutionsActive
-                  ? "text-blue-700 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 font-bold"
+                  ? "text-brand-subtle-foreground bg-brand-subtle border border-brand-border font-bold"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >

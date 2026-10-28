@@ -56,8 +56,8 @@ export function PublicationCard({
     <article className="group rounded-xl sm:rounded-2xl border border-border/70 bg-card/90 dark:bg-card/75 backdrop-blur-xs p-3.5 sm:p-4 shadow-2xs hover:border-blue-500/40 hover:shadow-xs transition-all space-y-2.5">
       <div className="flex items-center justify-between gap-2 text-xs">
         <div className="flex items-center gap-1.5 min-w-0">
-          <BookOpen className="size-3.5 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" />
-          <span className="font-semibold text-blue-700 dark:text-blue-400 truncate hover:underline cursor-pointer">
+          <BookOpen className="size-3.5 text-brand-text shrink-0" aria-hidden="true" />
+          <span className="font-semibold text-brand-text truncate hover:underline cursor-pointer">
             {publication.journal?.title ?? "Academic Journal"}
           </span>
         </div>
@@ -74,11 +74,11 @@ export function PublicationCard({
           href={`https://doi.org/${publication.doi}`}
           target="_blank"
           rel="noreferrer noopener"
-          className="group/title inline-flex items-start gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="group/title inline-flex items-start gap-1.5 hover:text-brand-text-hover transition-colors"
         >
           <span>{publication.name}</span>
           <ExternalLink
-            className="size-3.5 text-muted-foreground/50 shrink-0 mt-0.5 group-hover/title:text-blue-600 dark:group-hover/title:text-blue-400 transition-colors"
+            className="size-3.5 text-muted-foreground/50 shrink-0 mt-0.5 group-hover/title:text-brand-text transition-colors"
             aria-hidden="true"
           />
         </a>
@@ -96,7 +96,7 @@ export function PublicationCard({
               {orcidPath ? (
                 <Link
                   href={`/authors/${orcidPath}/details`}
-                  className="font-medium text-foreground hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors"
+                  className="font-medium text-foreground hover:text-brand-text-hover hover:underline transition-colors"
                 >
                   {authorName}
                 </Link>
@@ -153,8 +153,8 @@ export function PublicationCard({
               className={cn(
                 "inline-flex items-center gap-1.5 text-xs font-semibold px-2 py-0.5 rounded-md border transition-all active:scale-95 cursor-pointer select-none",
                 isDrawerOpen
-                  ? "bg-blue-600 text-white border-blue-600 dark:bg-blue-600 dark:border-blue-600"
-                  : "bg-blue-50/80 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-900/60 border-blue-200/60 dark:border-blue-800/60 text-blue-700 dark:text-blue-300"
+                  ? "bg-brand text-brand-foreground border-brand"
+                  : "bg-brand-subtle text-brand-subtle-foreground border border-brand-border hover:opacity-90"
               )}
             >
               <BookOpen className="size-3 shrink-0" aria-hidden="true" />
@@ -222,13 +222,13 @@ export function PublicationCard({
                 {references.map((ref) => (
                   <div
                     key={ref.id}
-                    className="p-2.5 bg-card/90 dark:bg-card/75 rounded-lg border border-border/60 hover:border-blue-500/30 transition-colors flex items-start gap-2.5"
+                    className="p-2.5 bg-card/90 dark:bg-card/75 rounded-lg border border-border/60 hover:border-brand/40 transition-colors flex items-start gap-2.5"
                   >
-                    <span className="size-5 rounded bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200/50 dark:border-blue-800/50 font-mono text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="size-5 rounded bg-brand-subtle text-brand-subtle-foreground border border-brand-border font-mono text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                       {ref.id}
                     </span>
                     <div className="flex-1 min-w-0 space-y-0.5">
-                      <div className="text-xs font-semibold text-foreground leading-snug line-clamp-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                      <div className="text-xs font-semibold text-foreground leading-snug line-clamp-2 hover:text-brand-text-hover transition-colors">
                         {ref.title}
                       </div>
                       <div className="flex flex-wrap items-center gap-x-2 text-[10px] text-muted-foreground">
@@ -238,7 +238,7 @@ export function PublicationCard({
                           href={`https://doi.org/${ref.doi}`}
                           target="_blank"
                           rel="noreferrer noopener"
-                          className="inline-flex items-center gap-1 font-mono text-blue-600 dark:text-blue-400 hover:underline"
+                          className="inline-flex items-center gap-1 font-mono text-brand-text hover:text-brand-text-hover hover:underline"
                         >
                           <span>{ref.doi}</span>
                           <ExternalLink className="size-2.5 shrink-0" aria-hidden="true" />

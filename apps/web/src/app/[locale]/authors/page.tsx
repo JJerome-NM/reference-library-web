@@ -44,7 +44,7 @@ export default async function AuthorsPage({ params }: AuthorsPageProps) {
               <AuthorsTable />
             </main>
 
-            <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3 space-y-5 lg:sticky lg:top-24">
+            <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3 space-y-3.5 lg:sticky lg:top-24">
               <div className="hidden lg:block">
                 <AuthorFiltersCard />
               </div>

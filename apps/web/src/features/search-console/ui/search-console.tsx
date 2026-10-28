@@ -182,7 +182,7 @@ export function SearchConsole({
         "group relative rounded-2xl border bg-card/95 dark:bg-card/85 backdrop-blur-md p-2.5 sm:p-3.5 shadow-xs transition-all duration-200",
         semanticMode && shouldShowSemantic
           ? "border-indigo-500/40 shadow-indigo-500/5 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20"
-          : "border-border/80 hover:border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15",
+          : "border-border/80 hover:border-border focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/20",
         className
       )}
       aria-label="Search Console"
@@ -224,7 +224,7 @@ export function SearchConsole({
           )}
         </div>
 
-        <div className="mt-2.5 flex flex-wrap items-center justify-between gap-2 p-1.5 rounded-xl bg-muted/30 dark:bg-muted/20 border border-border/40">
+        <div className="mt-2.5 flex flex-wrap items-center justify-between gap-2 p-1.5 rounded-xl bg-well border border-well-border">
           {showEntitySwitch && (
             <div className="flex items-center gap-1 overflow-x-auto max-w-full py-0.5">
               <span className="text-[11px] font-semibold text-muted-foreground/80 uppercase tracking-wider px-1 hidden md:inline select-none">
@@ -241,8 +241,8 @@ export function SearchConsole({
                     className={cn(
                       "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs transition-all whitespace-nowrap cursor-pointer select-none",
                       isActive
-                        ? "bg-background text-foreground shadow-2xs font-semibold ring-1 ring-border/60"
-                        : "text-muted-foreground hover:text-foreground hover:bg-background/40 font-medium"
+                        ? "bg-brand text-brand-foreground shadow-2xs font-semibold"
+                        : "text-muted-foreground hover:text-foreground hover:bg-card/60 font-medium"
                     )}
                   >
                     <Icon className="size-3.5 shrink-0" aria-hidden="true" />
@@ -289,11 +289,11 @@ export function SearchConsole({
 
             <button
               type="submit"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xs transition-all cursor-pointer active:scale-95 select-none shrink-0"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand text-brand-foreground hover:bg-brand-hover shadow-2xs transition-all cursor-pointer active:scale-95 select-none shrink-0"
             >
               <Search className="size-3.5 shrink-0" aria-hidden="true" />
               <span>{t("searchButton")}</span>
-              <kbd className="hidden sm:inline-flex items-center text-[10px] font-mono px-1 bg-primary-foreground/15 rounded text-primary-foreground/90 ml-0.5">
+              <kbd className="hidden sm:inline-flex items-center text-[10px] font-mono px-1 bg-brand-foreground/20 rounded text-brand-foreground ml-0.5">
                 ↵
               </kbd>
             </button>

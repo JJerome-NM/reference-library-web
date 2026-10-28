@@ -114,17 +114,17 @@ export function PublicationFeed() {
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
         <div className="flex flex-wrap items-center gap-2.5">
-          <div className="size-8 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200/60 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-2xs shrink-0">
+          <div className="size-8 rounded-xl bg-brand-subtle border border-brand-border flex items-center justify-center text-brand-text shadow-2xs shrink-0">
             <FileText className="size-4" aria-hidden="true" />
           </div>
           <h1 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
             {t("recentTitle")}
           </h1>
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-blue-50/90 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200/70 dark:border-blue-800/70 shadow-2xs">
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-brand-subtle text-brand-subtle-foreground border border-brand-border shadow-2xs">
             {t("foundTotal", { count: totalElements })}
           </span>
           {isFetching && (
-            <span className="size-2 rounded-full bg-blue-600 animate-ping" aria-hidden="true" />
+            <span className="size-2 rounded-full bg-brand animate-ping" aria-hidden="true" />
           )}
         </div>
 
@@ -178,7 +178,7 @@ export function PublicationFeed() {
           <button
             type="button"
             onClick={clearAll}
-            className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold ml-1 cursor-pointer transition-colors"
+            className="text-xs text-brand-text hover:text-brand-text-hover font-semibold ml-1 cursor-pointer transition-colors hover:underline"
           >
             {t("clearAll")}
           </button>

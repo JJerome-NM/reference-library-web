@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   transpilePackages: ["@workspace/ui"],
   poweredByHeader: false,
   reactStrictMode: true,
+  experimental: {
+    cpus: 4,
+  },
   async headers() {
     return [
       {
