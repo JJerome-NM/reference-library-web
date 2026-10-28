@@ -6,7 +6,6 @@ import { routing } from "@/src/i18n/routing"
 import { Header } from "@/src/widgets/header"
 import { Footer } from "@/src/widgets/footer"
 import {
-  PlatformStatsCard,
   DataRegistriesCard,
   ContactsCard,
 } from "@/src/widgets/sidebar"
@@ -16,6 +15,8 @@ import {
   MOCK_JOURNALS,
   getMockJournalDetails,
 } from "@/src/entities/journal"
+
+export const revalidate = 3600
 
 interface JournalDetailsPageProps {
   params: Promise<{ locale: string; issn: string }>
@@ -74,7 +75,6 @@ export default async function JournalDetailsPage({ params }: JournalDetailsPageP
           </main>
 
           <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3 space-y-5 lg:sticky lg:top-24">
-            <PlatformStatsCard highlightJournal={true} />
             <DataRegistriesCard />
             <ContactsCard />
           </aside>

@@ -112,7 +112,7 @@ function TableCell({ className, ...props }: CellProps) {
 function TableCaption({
   className,
   ...props
-}: React.ComponentProps<"figcaption">) {
+}: React.ComponentPropsWithoutRef<"figcaption">) {
   return (
     <figcaption
       data-slot="table-caption"

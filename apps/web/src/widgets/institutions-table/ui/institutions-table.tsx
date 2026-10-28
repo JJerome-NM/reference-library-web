@@ -8,6 +8,8 @@ import {
   X,
   SearchX,
   Globe,
+  AlertCircle,
+  RotateCw,
 } from "lucide-react"
 import { Link } from "@/src/i18n/navigation"
 import {
@@ -19,8 +21,7 @@ import {
 } from "@workspace/ui/components/select"
 import { DataPagination } from "@workspace/ui/components/pagination"
 import { useInstitutionSearchParams } from "@/src/features/institution-search"
-import { useInstitutionsSearch } from "@/src/entities/institution"
-import type { InstitutionSortOption } from "@/src/entities/institution"
+import { useInstitutionsSearch, institutionSortOptionSchema } from "@/src/entities/institution"
 
 interface ActivePill {
   id: string
@@ -42,8 +43,15 @@ export function InstitutionsTable() {
     clearAll,
   } = useInstitutionSearchParams()
 
-  const { institutions, totalElements, totalPages, isLoading, isFetching } =
-    useInstitutionsSearch(payload)
+  const {
+    institutions,
+    totalElements,
+    totalPages,
+    isLoading,
+    isFetching,
+    isError,
+    refetch,
+  } = useInstitutionsSearch(payload)
 
   const pills: ActivePill[] = []
 
@@ -104,12 +112,15 @@ export function InstitutionsTable() {
             <span className="text-muted-foreground font-medium">{t("sorting")}</span>
             <Select
               selectedKey={sortOption}
-              onSelectionChange={(key) =>
-                updateParams({
-                  sort: key as InstitutionSortOption,
-                  page: null,
-                })
-              }
+              onSelectionChange={(key) => {
+                const parsed = institutionSortOptionSchema.safeParse(key)
+                if (parsed.success) {
+                  updateParams({
+                    sort: parsed.data,
+                    page: null,
+                  })
+                }
+              }}
               aria-label={t("sorting")}
             >
               <SelectTrigger>
@@ -177,6 +188,26 @@ export function InstitutionsTable() {
               aria-hidden="true"
             />
           ))}
+        </div>
+      ) : isError ? (
+        <div className="bg-card rounded-2xl border border-destructive/30 p-12 text-center space-y-3 shadow-xs">
+          <div className="flex justify-center text-destructive">
+            <AlertCircle className="size-10" aria-hidden="true" />
+          </div>
+          <h2 className="text-base font-bold text-foreground">
+            Помилка завантаження установ
+          </h2>
+          <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+            Не вдалося отримати список інституцій. Перевірте зʼєднання або спробуйте знову.
+          </p>
+          <button
+            type="button"
+            onClick={() => refetch()}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors shadow-2xs cursor-pointer"
+          >
+            <RotateCw className="size-3.5" aria-hidden="true" />
+            <span>Спробувати знову</span>
+          </button>
         </div>
       ) : institutions.length === 0 ? (
         <div className="bg-card rounded-2xl border border-border p-12 text-center space-y-3 shadow-xs">

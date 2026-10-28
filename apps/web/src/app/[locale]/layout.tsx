@@ -3,8 +3,7 @@ import { notFound } from "next/navigation"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server"
 import { routing } from "@/src/i18n/routing"
-import { ThemeProvider } from "@/src/shared/ui/theme-provider"
-import { QueryProvider } from "@/src/shared/providers"
+import { ThemeProvider, QueryProvider } from "@/src/shared/providers"
 import "@workspace/ui/styles/globals.css"
 
 interface LocaleLayoutProps {

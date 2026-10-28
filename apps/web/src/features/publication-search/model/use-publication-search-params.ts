@@ -5,9 +5,10 @@ import { useSearchParams } from "next/navigation"
 import { usePathname, useRouter } from "@/src/i18n/navigation"
 import { PAGINATION_CONFIG } from "@/src/shared/config"
 import { sanitizeNumericParam, sanitizeString } from "@/src/shared/lib/sanitizer"
-import type {
-  PublicationSearchPayload,
-  SortOption,
+import {
+  sortOptionSchema,
+  type PublicationSearchPayload,
+  type SortOption,
 } from "@/src/entities/publication"
 
 export function usePublicationSearchParams() {
@@ -24,7 +25,9 @@ export function usePublicationSearchParams() {
   const onlyCitationsParam = searchParams.get("citations")
   const onlyRefsParam = searchParams.get("refs")
   const semanticParam = searchParams.get("semantic")
-  const sortParam = (searchParams.get("sort") as SortOption) || "DATE_DESC"
+  const rawSort = searchParams.get("sort")
+  const sortParsed = sortOptionSchema.safeParse(rawSort)
+  const sortParam: SortOption = sortParsed.success ? sortParsed.data : "DATE_DESC"
   const pageParam = searchParams.get("page")
 
   const yearFrom = sanitizeNumericParam(yearFromStr, undefined, 1900, 2100)

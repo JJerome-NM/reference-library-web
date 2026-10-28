@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { Clock, X, FileX } from "lucide-react"
+import { FileText, X, FileX, AlertCircle, RotateCw } from "lucide-react"
 import {
   Select,
   SelectTrigger,
@@ -12,8 +12,7 @@ import {
 import { DataPagination } from "@workspace/ui/components/pagination"
 import { PublicationCard } from "./publication-card"
 import { usePublicationSearchParams } from "@/src/features/publication-search/model/use-publication-search-params"
-import { usePublicationsSearch } from "@/src/entities/publication"
-import type { SortOption } from "@/src/entities/publication"
+import { usePublicationsSearch, sortOptionSchema } from "@/src/entities/publication"
 
 export function PublicationFeed() {
   const t = useTranslations("publicationsFeed")
@@ -33,8 +32,15 @@ export function PublicationFeed() {
     clearAll,
   } = usePublicationSearchParams()
 
-  const { publications, totalElements, totalPages, isLoading, isFetching } =
-    usePublicationsSearch(payload)
+  const {
+    publications,
+    totalElements,
+    totalPages,
+    isLoading,
+    isFetching,
+    isError,
+    refetch,
+  } = usePublicationsSearch(payload)
 
   interface ActivePill {
     id: string
@@ -106,65 +112,73 @@ export function PublicationFeed() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 px-1">
-        <div className="flex items-center gap-2">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-1.5">
-            <Clock className="size-3.5 text-blue-600" aria-hidden="true" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <div className="size-8 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200/60 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-2xs shrink-0">
+            <FileText className="size-4" aria-hidden="true" />
+          </div>
+          <h1 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
             {t("recentTitle")}
-          </h2>
-          <span className="text-muted-foreground/40">•</span>
-          <span className="text-xs text-muted-foreground font-medium">
-            {t("foundTotal").replace("4 952", String(totalElements))}
+          </h1>
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-blue-50/90 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200/70 dark:border-blue-800/70 shadow-2xs">
+            {t("foundTotal", { count: totalElements })}
           </span>
           {isFetching && (
             <span className="size-2 rounded-full bg-blue-600 animate-ping" aria-hidden="true" />
           )}
         </div>
 
-        <div className="flex items-center gap-2 text-xs">
-          <span className="text-muted-foreground font-medium">{t("sorting")}</span>
-          <Select
-            selectedKey={sortOption}
-            onSelectionChange={(key) => updateParams({ sort: key as SortOption, page: null })}
-            aria-label={t("sorting")}
-          >
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem id="DATE_DESC">{t("sortNewest")}</SelectItem>
-              <SelectItem id="CITATIONS_DESC">{t("sortCitations")}</SelectItem>
-              <SelectItem id="REFERENCES_DESC">{t("sortReferences")}</SelectItem>
-            </SelectContent>
-          </Select>
+        <div className="flex items-center gap-2 self-start sm:self-auto">
+          <div className="flex items-center gap-2 bg-card/95 dark:bg-card/85 backdrop-blur-md border border-border/80 rounded-xl px-3 py-1 shadow-2xs text-xs">
+            <span className="text-muted-foreground font-medium shrink-0">{t("sorting")}</span>
+            <Select
+              selectedKey={sortOption}
+              onSelectionChange={(key) => {
+                const parsed = sortOptionSchema.safeParse(key)
+                if (parsed.success) {
+                  updateParams({ sort: parsed.data, page: null })
+                }
+              }}
+              aria-label={t("sorting")}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem id="DATE_DESC">{t("sortNewest")}</SelectItem>
+                <SelectItem id="CITATIONS_DESC">{t("sortCitations")}</SelectItem>
+                <SelectItem id="REFERENCES_DESC">{t("sortReferences")}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       </div>
 
       {pills.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5 px-1 text-xs">
-          <span className="text-[11px] text-muted-foreground font-medium">
+          <span className="text-xs text-muted-foreground font-medium">
             {t("activeFilters")}
           </span>
           {pills.map((pill) => (
             <span
               key={pill.id}
-              className="inline-flex items-center gap-1 bg-card border border-border text-foreground px-2 py-0.5 rounded-md text-[11px] font-semibold shadow-2xs"
+              className="inline-flex items-center gap-1.5 bg-muted/40 dark:bg-muted/20 border border-border/70 text-foreground px-2.5 py-1 rounded-lg text-xs font-medium shadow-2xs"
             >
               <span className="line-clamp-1 max-w-[200px]">{pill.label}</span>
               <button
                 type="button"
                 onClick={pill.onRemove}
-                className="hover:text-foreground text-muted-foreground cursor-pointer"
+                className="text-muted-foreground/70 hover:text-foreground p-0.5 rounded-full hover:bg-muted transition-colors cursor-pointer"
                 aria-label={`Remove filter ${pill.label}`}
               >
-                <X className="size-2.5" aria-hidden="true" />
+                <X className="size-3" aria-hidden="true" />
               </button>
             </span>
           ))}
           <button
             type="button"
             onClick={clearAll}
-            className="text-[11px] text-blue-600 hover:text-blue-800 font-semibold ml-1 cursor-pointer"
+            className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold ml-1 cursor-pointer transition-colors"
           >
             {t("clearAll")}
           </button>
@@ -172,19 +186,50 @@ export function PublicationFeed() {
       )}
 
       {isLoading ? (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {Array.from({ length: 3 }).map((_, idx) => (
             <div
               key={idx}
-              className="h-44 animate-pulse rounded-2xl border border-border bg-muted/40 p-5"
+              className="h-32 animate-pulse rounded-xl sm:rounded-2xl border border-border/70 bg-card/60 p-4 space-y-2.5"
               aria-hidden="true"
-            />
+            >
+              <div className="flex justify-between items-center">
+                <div className="h-4 w-32 bg-muted/70 rounded-md" />
+                <div className="h-3 w-16 bg-muted/60 rounded-md" />
+              </div>
+              <div className="h-5 w-4/5 bg-muted/70 rounded-md" />
+              <div className="h-3.5 w-1/2 bg-muted/60 rounded-md" />
+              <div className="pt-2 border-t border-border/40 flex justify-between items-center">
+                <div className="h-4 w-36 bg-muted/70 rounded-md" />
+                <div className="h-4 w-28 bg-muted/70 rounded-md" />
+              </div>
+            </div>
           ))}
         </div>
+      ) : isError ? (
+        <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-xl sm:rounded-2xl border border-destructive/30 p-8 text-center space-y-3 shadow-xs">
+          <div className="flex justify-center text-destructive">
+            <AlertCircle className="size-9" aria-hidden="true" />
+          </div>
+          <h3 className="text-base font-bold text-foreground">
+            Помилка завантаження публікацій
+          </h3>
+          <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+            Не вдалося отримати дані з сервера. Перевірте зʼєднання або спробуйте знову.
+          </p>
+          <button
+            type="button"
+            onClick={() => refetch()}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors shadow-2xs cursor-pointer active:scale-95"
+          >
+            <RotateCw className="size-3.5" aria-hidden="true" />
+            <span>Спробувати знову</span>
+          </button>
+        </div>
       ) : publications.length === 0 ? (
-        <div className="bg-card rounded-2xl border border-border p-12 text-center space-y-3 shadow-xs">
+        <div className="bg-card/95 dark:bg-card/85 backdrop-blur-md rounded-xl sm:rounded-2xl border border-border/80 p-8 text-center space-y-3 shadow-xs">
           <div className="flex justify-center text-muted-foreground">
-            <FileX className="size-10" aria-hidden="true" />
+            <FileX className="size-9" aria-hidden="true" />
           </div>
           <h3 className="text-base font-bold text-foreground">
             {t("emptyTitle")}
@@ -195,13 +240,13 @@ export function PublicationFeed() {
           <button
             type="button"
             onClick={clearAll}
-            className="inline-flex items-center px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors shadow-2xs cursor-pointer"
+            className="inline-flex items-center px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors shadow-2xs cursor-pointer active:scale-95"
           >
             {t("resetFilters")}
           </button>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {publications.map((pub) => (
             <PublicationCard key={pub.doi} publication={pub} />
           ))}

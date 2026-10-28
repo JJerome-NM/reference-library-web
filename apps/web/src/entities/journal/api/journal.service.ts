@@ -11,9 +11,19 @@ import {
   filterMockJournals,
 } from "./journal.mock"
 
+export const journalKeys = {
+  all: ["journals"] as const,
+  lists: () => [...journalKeys.all, "list"] as const,
+  searches: () => [...journalKeys.all, "search"] as const,
+  search: (payload: JournalSearchPayload = {}) =>
+    [...journalKeys.all, "search-post", payload] as const,
+  details: () => [...journalKeys.all, "details"] as const,
+  detail: (issn?: string) => [...journalKeys.details(), issn] as const,
+}
+
 class JournalService {
   private url = "/journals"
-  public queryKeys = ["journals"] as const
+  public queryKeys = journalKeys.all
 
   search(payload: JournalSearchPayload = {}) {
     return apiClient.post<JournalsPage>(`${this.url}/search`, payload, {
@@ -24,7 +34,7 @@ class JournalService {
 
   searchQueryOptions(payload: JournalSearchPayload = {}) {
     return queryOptions({
-      queryKey: [...this.queryKeys, "search-post", payload],
+      queryKey: journalKeys.search(payload),
       queryFn: (meta) => {
         return apiClient.post<JournalsPage>(`${this.url}/search`, payload, {
           signal: meta.signal,
@@ -47,7 +57,7 @@ class JournalService {
 
   getDetailsQueryOptions(issn?: string) {
     return queryOptions({
-      queryKey: [...this.queryKeys, "details", issn],
+      queryKey: journalKeys.detail(issn),
       queryFn: (meta) => {
         const endpoint = `${this.url}/${encodeURIComponent(issn ?? "")}`
         return apiClient.get<JournalDetailsResponse>(endpoint, {

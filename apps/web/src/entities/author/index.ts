@@ -1,4 +1,4 @@
-export { authorService } from "./api/author.service"
+export { authorService, authorKeys } from "./api/author.service"
 export { useAuthorDetails } from "./api/queries/use-author-details"
 export { useAuthorsSearch } from "./api/queries/use-authors-search"
 export {
@@ -8,13 +8,4 @@ export {
   filterMockAuthors,
   getMockAuthorDetails,
 } from "./api/author.mock"
-export type {
-  AuthorDto,
-  AuthorStatisticDto,
-  AuthorDetailsResponse,
-  AuthorSearchParams,
-  AuthorSearchPayload,
-  AuthorSortOption,
-  AuthorDetailsParams,
-  AuthorsPage,
-} from "./api/author.types"
+export * from "./model"

@@ -1,8 +1,28 @@
 import { API_BASE_URL, USE_MOCK_DATA } from "@/src/shared/config/api.config"
 
-interface RequestOptions extends RequestInit {
+export interface NextFetchOptions {
+  revalidate?: number | false
+  tags?: string[]
+}
+
+export interface RequestOptions extends RequestInit {
   mockData?: unknown
   delayMs?: number
+  next?: NextFetchOptions
+}
+
+export class HttpError extends Error {
+  readonly status: number
+  readonly statusText: string
+  readonly data?: unknown
+
+  constructor(status: number, statusText: string, data?: unknown) {
+    super(`HTTP ${status} ${statusText}`)
+    this.name = "HttpError"
+    this.status = status
+    this.statusText = statusText
+    this.data = data
+  }
 }
 
 class ApiClient {
@@ -32,6 +52,18 @@ class ApiClient {
     })
   }
 
+  private async parseErrorBody(response: Response): Promise<unknown> {
+    try {
+      return await response.json()
+    } catch {
+      try {
+        return await response.text()
+      } catch {
+        return null
+      }
+    }
+  }
+
   async get<T>(path: string, options?: RequestOptions): Promise<T> {
     if (options?.signal?.aborted) {
       throw new DOMException("The user aborted a request.", "AbortError")
@@ -51,13 +83,15 @@ class ApiClient {
           ...options?.headers,
         },
         signal: options?.signal,
+        next: options?.next,
       })
 
       if (!response.ok) {
         if (options?.mockData !== undefined) {
           return options.mockData as T
         }
-        throw new Error(`API error: ${response.status} ${response.statusText}`)
+        const errorData = await this.parseErrorBody(response)
+        throw new HttpError(response.status, response.statusText, errorData)
       }
 
       return (await response.json()) as T
@@ -92,13 +126,15 @@ class ApiClient {
         },
         body: body ? JSON.stringify(body) : undefined,
         signal: options?.signal,
+        next: options?.next,
       })
 
       if (!response.ok) {
         if (options?.mockData !== undefined) {
           return options.mockData as T
         }
-        throw new Error(`API error: ${response.status} ${response.statusText}`)
+        const errorData = await this.parseErrorBody(response)
+        throw new HttpError(response.status, response.statusText, errorData)
       }
 
       return (await response.json()) as T

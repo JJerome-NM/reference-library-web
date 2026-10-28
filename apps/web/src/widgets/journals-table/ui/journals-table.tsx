@@ -8,6 +8,8 @@ import {
   X,
   BookX,
   Layers,
+  AlertCircle,
+  RotateCw,
 } from "lucide-react"
 import { Link } from "@/src/i18n/navigation"
 import {
@@ -19,8 +21,7 @@ import {
 } from "@workspace/ui/components/select"
 import { DataPagination } from "@workspace/ui/components/pagination"
 import { useJournalSearchParams } from "@/src/features/journal-search"
-import { useJournalsSearch } from "@/src/entities/journal"
-import type { JournalSortOption } from "@/src/entities/journal"
+import { useJournalsSearch, journalSortOptionSchema } from "@/src/entities/journal"
 
 interface ActivePill {
   id: string
@@ -44,8 +45,15 @@ export function JournalsTable() {
     clearAll,
   } = useJournalSearchParams()
 
-  const { journals, totalElements, totalPages, isLoading, isFetching } =
-    useJournalsSearch(payload)
+  const {
+    journals,
+    totalElements,
+    totalPages,
+    isLoading,
+    isFetching,
+    isError,
+    refetch,
+  } = useJournalsSearch(payload)
 
   const pills: ActivePill[] = []
 
@@ -122,12 +130,15 @@ export function JournalsTable() {
             <span className="text-muted-foreground font-medium">{t("sorting")}</span>
             <Select
               selectedKey={sortOption}
-              onSelectionChange={(key) =>
-                updateParams({
-                  sort: key as JournalSortOption,
-                  page: null,
-                })
-              }
+              onSelectionChange={(key) => {
+                const parsed = journalSortOptionSchema.safeParse(key)
+                if (parsed.success) {
+                  updateParams({
+                    sort: parsed.data,
+                    page: null,
+                  })
+                }
+              }}
               aria-label={t("sorting")}
             >
               <SelectTrigger>
@@ -195,6 +206,26 @@ export function JournalsTable() {
               aria-hidden="true"
             />
           ))}
+        </div>
+      ) : isError ? (
+        <div className="bg-card rounded-2xl border border-destructive/30 p-12 text-center space-y-3 shadow-xs">
+          <div className="flex justify-center text-destructive">
+            <AlertCircle className="size-10" aria-hidden="true" />
+          </div>
+          <h2 className="text-base font-bold text-foreground">
+            Помилка завантаження журналів
+          </h2>
+          <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+            Не вдалося отримати список видань. Перевірте зʼєднання або спробуйте знову.
+          </p>
+          <button
+            type="button"
+            onClick={() => refetch()}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors shadow-2xs cursor-pointer"
+          >
+            <RotateCw className="size-3.5" aria-hidden="true" />
+            <span>Спробувати знову</span>
+          </button>
         </div>
       ) : journals.length === 0 ? (
         <div className="bg-card rounded-2xl border border-border p-12 text-center space-y-3 shadow-xs">

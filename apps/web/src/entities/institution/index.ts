@@ -1,4 +1,4 @@
-export { institutionService } from "./api/institution.service"
+export { institutionService, institutionKeys } from "./api/institution.service"
 export { useInstitutionsSearch } from "./api/queries/use-institutions-search"
 export { useInstitutionDetails } from "./api/queries/use-institution-details"
 export {
@@ -9,11 +9,4 @@ export {
   filterMockInstitutions,
   getMockInstitutionDetails,
 } from "./api/institution.mock"
-export type {
-  InstitutionDto,
-  InstitutionDetailsResponse,
-  InstitutionSortOption,
-  InstitutionSearchPayload,
-  InstitutionSearchParams,
-  InstitutionsPage,
-} from "./api/institution.types"
+export * from "./model"

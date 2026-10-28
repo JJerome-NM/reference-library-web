@@ -29,7 +29,7 @@ function Badge({
   variant = "default",
   render,
   ...props
-}: React.ComponentProps<"span"> &
+}: React.ComponentPropsWithoutRef<"span"> &
   VariantProps<typeof badgeVariants> & {
     render?: (props: React.HTMLAttributes<HTMLElement>) => React.ReactNode
   }) {

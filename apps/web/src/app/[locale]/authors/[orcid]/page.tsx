@@ -6,7 +6,6 @@ import { routing } from "@/src/i18n/routing"
 import { Header } from "@/src/widgets/header"
 import { Footer } from "@/src/widgets/footer"
 import {
-  PlatformStatsCard,
   DataRegistriesCard,
   ContactsCard,
 } from "@/src/widgets/sidebar"
@@ -16,6 +15,8 @@ import {
   MOCK_AUTHORS,
   getMockAuthorDetails,
 } from "@/src/entities/author"
+
+export const revalidate = 3600
 
 interface AuthorDetailsPageProps {
   params: Promise<{ locale: string; orcid: string }>
@@ -75,7 +76,6 @@ export default async function AuthorDetailsPage({ params }: AuthorDetailsPagePro
           </main>
 
           <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3 space-y-5 lg:sticky lg:top-24">
-            <PlatformStatsCard highlightAuthor={true} />
             <DataRegistriesCard />
             <ContactsCard />
           </aside>

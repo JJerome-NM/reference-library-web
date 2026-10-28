@@ -1,4 +1,3 @@
-export { PlatformStatsCard } from "./ui/platform-stats-card"
 export { DataRegistriesCard } from "./ui/data-registries-card"
 export { ContactsCard } from "./ui/contacts-card"
 export { PublicationFiltersCard } from "./ui/publication-filters-card"

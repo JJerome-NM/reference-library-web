@@ -5,9 +5,10 @@ import { useSearchParams } from "next/navigation"
 import { usePathname, useRouter } from "@/src/i18n/navigation"
 import { PAGINATION_CONFIG } from "@/src/shared/config"
 import { sanitizeNumericParam, sanitizeString } from "@/src/shared/lib/sanitizer"
-import type {
-  AuthorSearchPayload,
-  AuthorSortOption,
+import {
+  authorSortOptionSchema,
+  type AuthorSearchPayload,
+  type AuthorSortOption,
 } from "@/src/entities/author"
 
 export function useAuthorSearchParams() {
@@ -22,7 +23,9 @@ export function useAuthorSearchParams() {
   const indexToStr = searchParams.get("to")
   const orcidParam = searchParams.get("orcid")
   const activePubsParam = searchParams.get("activePubs")
-  const sortParam = (searchParams.get("sort") as AuthorSortOption) || "INDEX_DESC"
+  const rawSort = searchParams.get("sort")
+  const sortParsed = authorSortOptionSchema.safeParse(rawSort)
+  const sortParam: AuthorSortOption = sortParsed.success ? sortParsed.data : "INDEX_DESC"
   const pageParam = searchParams.get("page")
 
   const indexFrom = sanitizeNumericParam(indexFromStr, undefined, 0, 100)

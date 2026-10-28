@@ -5,9 +5,10 @@ import { useSearchParams } from "next/navigation"
 import { usePathname, useRouter } from "@/src/i18n/navigation"
 import { PAGINATION_CONFIG } from "@/src/shared/config"
 import { sanitizeNumericParam, sanitizeString } from "@/src/shared/lib/sanitizer"
-import type {
-  InstitutionSearchPayload,
-  InstitutionSortOption,
+import {
+  institutionSortOptionSchema,
+  type InstitutionSearchPayload,
+  type InstitutionSortOption,
 } from "@/src/entities/institution"
 
 export function useInstitutionSearchParams() {
@@ -21,7 +22,9 @@ export function useInstitutionSearchParams() {
   const indexFromStr = searchParams.get("from")
   const indexToStr = searchParams.get("to")
   const countryParam = searchParams.get("country")
-  const sortParam = (searchParams.get("sort") as InstitutionSortOption) || "INDEX_DESC"
+  const rawSort = searchParams.get("sort")
+  const sortParsed = institutionSortOptionSchema.safeParse(rawSort)
+  const sortParam: InstitutionSortOption = sortParsed.success ? sortParsed.data : "INDEX_DESC"
   const pageParam = searchParams.get("page")
 
   const indexFrom = sanitizeNumericParam(indexFromStr, undefined, 0, 100)

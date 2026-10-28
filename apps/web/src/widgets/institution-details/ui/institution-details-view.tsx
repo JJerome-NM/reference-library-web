@@ -32,6 +32,11 @@ interface InstitutionDetailsViewProps {
 }
 
 type TabType = "authors" | "about"
+type InstitutionAuthorSortOption = "INDEX_DESC" | "NAME_ASC"
+
+function isInstitutionAuthorSortOption(key: unknown): key is InstitutionAuthorSortOption {
+  return key === "INDEX_DESC" || key === "NAME_ASC"
+}
 
 function OrcidIcon() {
   return (
@@ -214,9 +219,11 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
               </span>
               <Select
                 selectedKey={sortOption}
-                onSelectionChange={(key) =>
-                  setSortOption(key as "INDEX_DESC" | "NAME_ASC")
-                }
+                onSelectionChange={(key) => {
+                  if (isInstitutionAuthorSortOption(key)) {
+                    setSortOption(key)
+                  }
+                }}
                 aria-label={t("sortAuthors")}
               >
                 <SelectTrigger>

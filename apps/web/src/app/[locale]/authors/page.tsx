@@ -8,12 +8,13 @@ import { Footer } from "@/src/widgets/footer"
 import { SearchConsole } from "@/src/features/search-console"
 import {
   AuthorFiltersCard,
-  PlatformStatsCard,
   DataRegistriesCard,
   ContactsCard,
   MobileFilterDrawer,
 } from "@/src/widgets/sidebar"
 import { AuthorsTable } from "@/src/widgets/authors-table"
+
+export const revalidate = 3600
 
 interface AuthorsPageProps {
   params: Promise<{ locale: string }>
@@ -47,7 +48,6 @@ export default async function AuthorsPage({ params }: AuthorsPageProps) {
               <div className="hidden lg:block">
                 <AuthorFiltersCard />
               </div>
-              <PlatformStatsCard highlightAuthor={true} />
               <DataRegistriesCard />
               <ContactsCard />
             </aside>

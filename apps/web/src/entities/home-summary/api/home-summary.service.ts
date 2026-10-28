@@ -4,13 +4,18 @@ import { CACHE_CONFIG } from "@/src/shared/config"
 import type { HomeSummaryDto } from "@/src/shared/api/types"
 import { MOCK_HOME_SUMMARY } from "./home-summary.mock"
 
+export const homeSummaryKeys = {
+  all: ["stats", "summary"] as const,
+  summary: () => [...homeSummaryKeys.all] as const,
+}
+
 class HomeSummaryService {
   private url = "/stats/summary"
-  public queryKeys = ["stats", "summary"] as const
+  public queryKeys = homeSummaryKeys.all
 
   getSummaryQueryOptions() {
     return queryOptions({
-      queryKey: [...this.queryKeys],
+      queryKey: homeSummaryKeys.summary(),
       queryFn: (meta) => {
         return apiClient.get<HomeSummaryDto>(this.url, {
           signal: meta.signal,

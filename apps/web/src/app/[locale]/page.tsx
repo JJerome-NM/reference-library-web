@@ -8,12 +8,13 @@ import { Footer } from "@/src/widgets/footer"
 import { SearchConsole } from "@/src/features/search-console"
 import {
   PublicationFiltersCard,
-  PlatformStatsCard,
   DataRegistriesCard,
   ContactsCard,
   MobileFilterDrawer,
 } from "@/src/widgets/sidebar"
 import { PublicationFeed } from "@/src/widgets/publication-feed"
+
+export const revalidate = 3600
 
 interface HomePageProps {
   params: Promise<{ locale: string }>
@@ -43,11 +44,10 @@ export default async function HomePage({ params }: HomePageProps) {
               <PublicationFeed />
             </main>
 
-            <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3 space-y-5 lg:sticky lg:top-24">
+            <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3 space-y-3.5 lg:sticky lg:top-24">
               <div className="hidden lg:block">
                 <PublicationFiltersCard />
               </div>
-              <PlatformStatsCard />
               <DataRegistriesCard />
               <ContactsCard />
             </aside>

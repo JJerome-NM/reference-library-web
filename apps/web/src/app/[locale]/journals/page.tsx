@@ -9,12 +9,13 @@ import { Footer } from "@/src/widgets/footer"
 import { SearchConsole } from "@/src/features/search-console"
 import {
   JournalFiltersCard,
-  PlatformStatsCard,
   DataRegistriesCard,
   ContactsCard,
   MobileFilterDrawer,
 } from "@/src/widgets/sidebar"
 import { JournalsTable } from "@/src/widgets/journals-table"
+
+export const revalidate = 3600
 
 interface JournalsPageProps {
   params: Promise<{ locale: string }>
@@ -69,7 +70,6 @@ export default async function JournalsPage({ params }: JournalsPageProps) {
               <div className="hidden lg:block">
                 <JournalFiltersCard />
               </div>
-              <PlatformStatsCard highlightJournal={true} />
               <DataRegistriesCard />
               <ContactsCard />
             </aside>

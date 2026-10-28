@@ -9,12 +9,13 @@ import { Footer } from "@/src/widgets/footer"
 import { SearchConsole } from "@/src/features/search-console"
 import {
   InstitutionFiltersCard,
-  PlatformStatsCard,
   DataRegistriesCard,
   ContactsCard,
   MobileFilterDrawer,
 } from "@/src/widgets/sidebar"
 import { InstitutionsTable } from "@/src/widgets/institutions-table"
+
+export const revalidate = 3600
 
 interface InstitutionsPageProps {
   params: Promise<{ locale: string }>
@@ -69,7 +70,6 @@ export default async function InstitutionsPage({ params }: InstitutionsPageProps
               <div className="hidden lg:block">
                 <InstitutionFiltersCard />
               </div>
-              <PlatformStatsCard highlightInstitution={true} />
               <DataRegistriesCard />
               <ContactsCard />
             </aside>

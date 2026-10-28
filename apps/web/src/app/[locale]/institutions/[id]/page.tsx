@@ -6,7 +6,6 @@ import { routing } from "@/src/i18n/routing"
 import { Header } from "@/src/widgets/header"
 import { Footer } from "@/src/widgets/footer"
 import {
-  PlatformStatsCard,
   DataRegistriesCard,
   ContactsCard,
 } from "@/src/widgets/sidebar"
@@ -16,6 +15,8 @@ import {
   MOCK_INSTITUTIONS,
   getMockInstitutionDetails,
 } from "@/src/entities/institution"
+
+export const revalidate = 3600
 
 interface InstitutionDetailsPageProps {
   params: Promise<{ locale: string; id: string }>
@@ -72,7 +73,6 @@ export default async function InstitutionDetailsPage({ params }: InstitutionDeta
           </main>
 
           <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3 space-y-5 lg:sticky lg:top-24">
-            <PlatformStatsCard highlightInstitution={true} />
             <DataRegistriesCard />
             <ContactsCard />
           </aside>

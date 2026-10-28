@@ -5,9 +5,10 @@ import { useSearchParams } from "next/navigation"
 import { usePathname, useRouter } from "@/src/i18n/navigation"
 import { PAGINATION_CONFIG } from "@/src/shared/config"
 import { sanitizeNumericParam, sanitizeString } from "@/src/shared/lib/sanitizer"
-import type {
-  JournalSearchPayload,
-  JournalSortOption,
+import {
+  journalSortOptionSchema,
+  type JournalSearchPayload,
+  type JournalSortOption,
 } from "@/src/entities/journal"
 
 export function useJournalSearchParams() {
@@ -23,7 +24,9 @@ export function useJournalSearchParams() {
   const versionsParam = searchParams.get("versions")
   const printParam = searchParams.get("print")
   const onlineParam = searchParams.get("online")
-  const sortParam = (searchParams.get("sort") as JournalSortOption) || "INDEX_DESC"
+  const rawSort = searchParams.get("sort")
+  const sortParsed = journalSortOptionSchema.safeParse(rawSort)
+  const sortParam: JournalSortOption = sortParsed.success ? sortParsed.data : "INDEX_DESC"
   const pageParam = searchParams.get("page")
 
   const indexFrom = sanitizeNumericParam(indexFromStr, undefined, 0, 100)

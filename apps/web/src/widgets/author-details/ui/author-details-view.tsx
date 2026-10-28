@@ -35,6 +35,11 @@ interface AuthorDetailsViewProps {
 }
 
 type TabType = "publications" | "coAuthors" | "journals" | "metrics"
+type PublicationSortOption = "DATE_DESC" | "DATE_ASC" | "CITATIONS_DESC"
+
+function isPublicationSortOption(key: unknown): key is PublicationSortOption {
+  return key === "DATE_DESC" || key === "DATE_ASC" || key === "CITATIONS_DESC"
+}
 
 function OrcidIcon() {
   return (
@@ -299,9 +304,11 @@ export function AuthorDetailsView({ data }: AuthorDetailsViewProps) {
               </span>
               <Select
                 selectedKey={sortOption}
-                onSelectionChange={(key) =>
-                  setSortOption(key as "DATE_DESC" | "DATE_ASC" | "CITATIONS_DESC")
-                }
+                onSelectionChange={(key) => {
+                  if (isPublicationSortOption(key)) {
+                    setSortOption(key)
+                  }
+                }}
                 aria-label={t("sortPublications")}
               >
                 <SelectTrigger>

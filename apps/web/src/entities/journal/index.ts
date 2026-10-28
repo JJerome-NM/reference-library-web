@@ -1,4 +1,4 @@
-export { journalService } from "./api/journal.service"
+export { journalService, journalKeys } from "./api/journal.service"
 export { useJournalsSearch } from "./api/queries/use-journals-search"
 export { useJournalDetails } from "./api/queries/use-journal-details"
 export {
@@ -8,14 +8,4 @@ export {
   getMockJournalDetails,
   filterMockJournals,
 } from "./api/journal.mock"
-export type {
-  JournalDto,
-  JournalWithAuthorsDto,
-  FullJournalDto,
-  JournalVersionDto,
-  JournalDetailsResponse,
-  JournalSortOption,
-  JournalSearchPayload,
-  JournalSearchParams,
-  JournalsPage,
-} from "./api/journal.types"
+export * from "./model"

@@ -12,9 +12,20 @@ import {
   filterMockAuthors,
 } from "./author.mock"
 
+export const authorKeys = {
+  all: ["authors"] as const,
+  lists: () => [...authorKeys.all, "list"] as const,
+  searches: () => [...authorKeys.all, "search"] as const,
+  search: (payload: AuthorSearchPayload = {}) =>
+    [...authorKeys.all, "search-post", payload] as const,
+  details: () => [...authorKeys.all, "details"] as const,
+  detail: (orcid?: string, params?: AuthorDetailsParams) =>
+    [...authorKeys.details(), orcid, params] as const,
+}
+
 class AuthorService {
   private url = "/authors"
-  public queryKeys = ["authors"] as const
+  public queryKeys = authorKeys.all
 
   search(payload: AuthorSearchPayload = {}) {
     return apiClient.post<AuthorsPage>(`${this.url}/search`, payload, {
@@ -25,7 +36,7 @@ class AuthorService {
 
   searchQueryOptions(payload: AuthorSearchPayload = {}) {
     return queryOptions({
-      queryKey: [...this.queryKeys, "search-post", payload],
+      queryKey: authorKeys.search(payload),
       queryFn: (meta) => {
         return apiClient.post<AuthorsPage>(`${this.url}/search`, payload, {
           signal: meta.signal,
@@ -58,7 +69,7 @@ class AuthorService {
 
   getDetailsQueryOptions(orcid?: string, params?: AuthorDetailsParams) {
     return queryOptions({
-      queryKey: [...this.queryKeys, "details", orcid, params],
+      queryKey: authorKeys.detail(orcid, params),
       queryFn: (meta) => {
         const queryParams = new URLSearchParams()
         if (params?.searchQuery) queryParams.set("searchQuery", params.searchQuery)

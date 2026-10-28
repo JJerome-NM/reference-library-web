@@ -263,3 +263,26 @@ export function filterMockPublications(
 }
 
 export const MOCK_PUBLICATIONS_PAGE: PublicationsPage = filterMockPublications()
+
+export function getMockPublicationReferences() {
+  return [
+    {
+      id: 1,
+      title: "Phase stability and microstructural transitions in high-entropy multicomponent systems",
+      journal: "Acta Materialia",
+      doi: "10.1016/j.actamat.2024.119874",
+    },
+    {
+      id: 2,
+      title: "Microstructural features and consolidation mechanics of warm-pressed refractory alloys",
+      journal: "Materials Science and Engineering: A",
+      doi: "10.1016/j.msea.2025.145120",
+    },
+    {
+      id: 3,
+      title: "Kinetic models and numerical simulation of solid-state interdiffusion under quasi-static stress",
+      journal: "Metallurgical and Materials Transactions A",
+      doi: "10.1016/j.msea.2025.145120",
+    },
+  ]
+}

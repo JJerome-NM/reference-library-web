@@ -11,9 +11,20 @@ import {
   filterMockInstitutions,
 } from "./institution.mock"
 
+export const institutionKeys = {
+  all: ["institutions"] as const,
+  lists: () => [...institutionKeys.all, "list"] as const,
+  searches: () => [...institutionKeys.all, "search"] as const,
+  search: (payload: InstitutionSearchPayload = {}) =>
+    [...institutionKeys.all, "search-post", payload] as const,
+  details: () => [...institutionKeys.all, "details"] as const,
+  detail: (id?: number | string, page = 0, sortOption?: string) =>
+    [...institutionKeys.details(), id, page, sortOption] as const,
+}
+
 class InstitutionService {
   private url = "/institutions"
-  public queryKeys = ["institutions"] as const
+  public queryKeys = institutionKeys.all
 
   search(payload: InstitutionSearchPayload = {}) {
     return apiClient.post<InstitutionsPage>(`${this.url}/search`, payload, {
@@ -24,7 +35,7 @@ class InstitutionService {
 
   searchQueryOptions(payload: InstitutionSearchPayload = {}) {
     return queryOptions({
-      queryKey: [...this.queryKeys, "search-post", payload],
+      queryKey: institutionKeys.search(payload),
       queryFn: (meta) => {
         return apiClient.post<InstitutionsPage>(`${this.url}/search`, payload, {
           signal: meta.signal,
@@ -47,7 +58,7 @@ class InstitutionService {
 
   getDetailsQueryOptions(id: number | string, page = 0, sortOption?: string) {
     return queryOptions({
-      queryKey: [...this.queryKeys, "details", id, page, sortOption],
+      queryKey: institutionKeys.detail(id, page, sortOption),
       queryFn: (meta) => {
         const endpoint = `${this.url}/${id}?page=${page}${sortOption ? `&sortOption=${sortOption}` : ""}`
         return apiClient.get<InstitutionDetailsResponse>(endpoint, {

@@ -8,6 +8,8 @@ import {
   ExternalLink,
   X,
   UserX,
+  AlertCircle,
+  RotateCw,
 } from "lucide-react"
 import { Link } from "@/src/i18n/navigation"
 import {
@@ -19,8 +21,7 @@ import {
 } from "@workspace/ui/components/select"
 import { DataPagination } from "@workspace/ui/components/pagination"
 import { useAuthorSearchParams } from "@/src/features/author-search"
-import { useAuthorsSearch } from "@/src/entities/author"
-import type { AuthorSortOption } from "@/src/entities/author"
+import { useAuthorsSearch, authorSortOptionSchema } from "@/src/entities/author"
 
 function OrcidIcon() {
   return (
@@ -80,8 +81,15 @@ export function AuthorsTable() {
     clearAll,
   } = useAuthorSearchParams()
 
-  const { authors, totalElements, totalPages, isLoading, isFetching } =
-    useAuthorsSearch(payload)
+  const {
+    authors,
+    totalElements,
+    totalPages,
+    isLoading,
+    isFetching,
+    isError,
+    refetch,
+  } = useAuthorsSearch(payload)
 
   const pills: ActivePill[] = []
 
@@ -150,12 +158,15 @@ export function AuthorsTable() {
             <span className="text-muted-foreground font-medium">{t("sorting")}</span>
             <Select
               selectedKey={sortOption}
-              onSelectionChange={(key) =>
-                updateParams({
-                  sort: key as AuthorSortOption,
-                  page: null,
-                })
-              }
+              onSelectionChange={(key) => {
+                const parsed = authorSortOptionSchema.safeParse(key)
+                if (parsed.success) {
+                  updateParams({
+                    sort: parsed.data,
+                    page: null,
+                  })
+                }
+              }}
               aria-label={t("sorting")}
             >
               <SelectTrigger>
@@ -223,6 +234,26 @@ export function AuthorsTable() {
               aria-hidden="true"
             />
           ))}
+        </div>
+      ) : isError ? (
+        <div className="bg-card rounded-2xl border border-destructive/30 p-12 text-center space-y-3 shadow-xs">
+          <div className="flex justify-center text-destructive">
+            <AlertCircle className="size-10" aria-hidden="true" />
+          </div>
+          <h2 className="text-base font-bold text-foreground">
+            Помилка завантаження авторів
+          </h2>
+          <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+            Не вдалося отримати список дослідників. Перевірте зʼєднання або спробуйте знову.
+          </p>
+          <button
+            type="button"
+            onClick={() => refetch()}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors shadow-2xs cursor-pointer"
+          >
+            <RotateCw className="size-3.5" aria-hidden="true" />
+            <span>Спробувати знову</span>
+          </button>
         </div>
       ) : authors.length === 0 ? (
         <div className="bg-card rounded-2xl border border-border p-12 text-center space-y-3 shadow-xs">
