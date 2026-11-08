@@ -6,6 +6,7 @@ import { routing } from "@/src/i18n/routing"
 import { Header } from "@/src/widgets/header"
 import { Footer } from "@/src/widgets/footer"
 import {
+  AuthorProfileSidebar,
   DataRegistriesCard,
   ContactsCard,
 } from "@/src/widgets/sidebar"
@@ -75,7 +76,8 @@ export default async function AuthorDetailsPage({ params }: AuthorDetailsPagePro
             <AuthorDetailsView data={data} />
           </main>
 
-          <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3 space-y-5 lg:sticky lg:top-24">
+          <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3 space-y-3.5 lg:sticky lg:top-24">
+            <AuthorProfileSidebar data={data} />
             <DataRegistriesCard />
             <ContactsCard />
           </aside>

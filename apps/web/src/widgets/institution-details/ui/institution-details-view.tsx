@@ -24,6 +24,7 @@ import {
   SelectItem,
 } from "@workspace/ui/components/select"
 import { TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
+import { ExcelDownloadButton } from "@/src/features/export-excel"
 import { sanitizeString } from "@/src/shared/lib/sanitizer"
 import type { InstitutionDetailsResponse } from "@/src/entities/institution"
 
@@ -213,27 +214,41 @@ export function InstitutionDetailsView({ data }: InstitutionDetailsViewProps) {
               />
             </div>
 
-            <div className="flex items-center gap-2 text-xs">
-              <span className="text-muted-foreground font-medium shrink-0">
-                {t("sortAuthors")}
-              </span>
-              <Select
-                selectedKey={sortOption}
-                onSelectionChange={(key) => {
-                  if (isInstitutionAuthorSortOption(key)) {
-                    setSortOption(key)
-                  }
+            <div className="flex items-center gap-2.5 shrink-0 justify-between sm:justify-end">
+              <div className="flex items-center gap-2 text-xs">
+                <span className="hidden sm:inline text-muted-foreground font-medium shrink-0">
+                  {t("sortAuthors")}
+                </span>
+                <Select
+                  selectedKey={sortOption}
+                  onSelectionChange={(key) => {
+                    if (isInstitutionAuthorSortOption(key)) {
+                      setSortOption(key)
+                    }
+                  }}
+                  aria-label={t("sortAuthors")}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem id="INDEX_DESC">{t("sortAuthorIndex")}</SelectItem>
+                    <SelectItem id="NAME_ASC">{t("sortAuthorName")}</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <ExcelDownloadButton
+                endpoint={`/api/institutions/${institution.institutionId}/download/excel`}
+                filename={`${(institution.nameUA || "institution").replace(/[^a-zA-Zа-яА-Я0-9]/g, "_")}_authors.xlsx`}
+                fallbackData={() => {
+                  const header = "#;Науковець;ORCID;Академічний індекс\n"
+                  const rows = (authors.content ?? [])
+                    .map((a, i) => `${i + 1};${a.lastName ?? ""} ${a.firstName ?? ""};${a.orcid};${a.academicIndex ?? ""}`)
+                    .join("\n")
+                  return `\uFEFF${header}${rows}`
                 }}
-                aria-label={t("sortAuthors")}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem id="INDEX_DESC">{t("sortAuthorIndex")}</SelectItem>
-                  <SelectItem id="NAME_ASC">{t("sortAuthorName")}</SelectItem>
-                </SelectContent>
-              </Select>
+              />
             </div>
           </div>
 

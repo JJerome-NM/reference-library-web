@@ -6,6 +6,7 @@ import { routing } from "@/src/i18n/routing"
 import { Header } from "@/src/widgets/header"
 import { Footer } from "@/src/widgets/footer"
 import {
+  JournalProfileSidebar,
   DataRegistriesCard,
   ContactsCard,
 } from "@/src/widgets/sidebar"
@@ -75,6 +76,7 @@ export default async function JournalDetailsPage({ params }: JournalDetailsPageP
           </main>
 
           <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3 space-y-5 lg:sticky lg:top-24">
+            <JournalProfileSidebar data={data} />
             <DataRegistriesCard />
             <ContactsCard />
           </aside>

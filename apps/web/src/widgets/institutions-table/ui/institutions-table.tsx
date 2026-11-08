@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl"
 import {
   Building2,
-  FileSpreadsheet,
   ChevronRight,
   X,
   SearchX,
@@ -20,6 +19,7 @@ import {
   SelectItem,
 } from "@workspace/ui/components/select"
 import { DataPagination } from "@workspace/ui/components/pagination"
+import { ExcelDownloadButton } from "@/src/features/export-excel"
 import { useInstitutionSearchParams } from "@/src/features/institution-search"
 import { useInstitutionsSearch, institutionSortOptionSchema } from "@/src/entities/institution"
 
@@ -93,7 +93,7 @@ export function InstitutionsTable() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 px-1">
         <div className="flex flex-wrap items-center gap-2.5">
           <div className="size-8 rounded-xl bg-brand-subtle border border-brand-border flex items-center justify-center text-brand-text shadow-2xs shrink-0">
             <Building2 className="size-4" aria-hidden="true" />
@@ -109,9 +109,9 @@ export function InstitutionsTable() {
           )}
         </div>
 
-        <div className="flex flex-wrap items-center justify-between sm:justify-end gap-2.5 w-full sm:w-auto">
-          <div className="flex items-center gap-2 bg-card/95 dark:bg-card/85 backdrop-blur-md border border-border/80 rounded-xl px-3 py-1 shadow-2xs text-xs">
-            <span className="text-muted-foreground font-medium shrink-0">{t("sorting")}</span>
+        <div className="flex items-center gap-2.5 shrink-0 justify-between sm:justify-end w-full sm:w-auto">
+          <div className="flex items-center gap-2 text-xs">
+            <span className="hidden sm:inline text-muted-foreground font-medium shrink-0">{t("sorting")}</span>
             <Select
               selectedKey={sortOption}
               onSelectionChange={(key) => {
@@ -136,17 +136,17 @@ export function InstitutionsTable() {
             </Select>
           </div>
 
-          <a
-            href="/api/institutions/download/excel"
-            download="institutions.xlsx"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border/80 bg-card/95 dark:bg-card/85 backdrop-blur-md hover:bg-muted/50 text-foreground text-xs font-semibold transition-all shadow-2xs active:scale-95 group shrink-0"
-          >
-            <FileSpreadsheet
-              className="size-3.5 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform"
-              aria-hidden="true"
-            />
-            <span>{t("downloadExcel")}</span>
-          </a>
+          <ExcelDownloadButton
+            endpoint="/api/institutions/download/excel"
+            filename="institutions.xlsx"
+            fallbackData={() => {
+              const header = "#;Назва установи;Країна;Академічний індекс\n"
+              const rows = institutions
+                .map((inst, i) => `${i + 1};${inst.nameUA || inst.nameEN || ""};${inst.country || ""};${inst.academicIndex ?? ""}`)
+                .join("\n")
+              return `\uFEFF${header}${rows}`
+            }}
+          />
         </div>
       </div>
 

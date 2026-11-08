@@ -10,6 +10,7 @@ import {
   SelectItem,
 } from "@workspace/ui/components/select"
 import { DataPagination } from "@workspace/ui/components/pagination"
+import { ExcelDownloadButton } from "@/src/features/export-excel"
 import { PublicationCard } from "./publication-card"
 import { usePublicationSearchParams } from "@/src/features/publication-search/model/use-publication-search-params"
 import { usePublicationsSearch, sortOptionSchema } from "@/src/entities/publication"
@@ -112,7 +113,7 @@ export function PublicationFeed() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 px-1">
         <div className="flex flex-wrap items-center gap-2.5">
           <div className="size-8 rounded-xl bg-brand-subtle border border-brand-border flex items-center justify-center text-brand-text shadow-2xs shrink-0">
             <FileText className="size-4" aria-hidden="true" />
@@ -128,9 +129,9 @@ export function PublicationFeed() {
           )}
         </div>
 
-        <div className="flex items-center gap-2 self-start sm:self-auto">
-          <div className="flex items-center gap-2 bg-card/95 dark:bg-card/85 backdrop-blur-md border border-border/80 rounded-xl px-3 py-1 shadow-2xs text-xs">
-            <span className="text-muted-foreground font-medium shrink-0">{t("sorting")}</span>
+        <div className="flex items-center gap-2.5 shrink-0 justify-between sm:justify-end w-full sm:w-auto">
+          <div className="flex items-center gap-2 text-xs">
+            <span className="hidden sm:inline text-muted-foreground font-medium shrink-0">{t("sorting")}</span>
             <Select
               selectedKey={sortOption}
               onSelectionChange={(key) => {
@@ -151,6 +152,18 @@ export function PublicationFeed() {
               </SelectContent>
             </Select>
           </div>
+
+          <ExcelDownloadButton
+            endpoint="/api/publications/download/excel"
+            filename="publications.xlsx"
+            fallbackData={() => {
+              const header = "#;Назва публікації;DOI;Рік;Цитування\n"
+              const rows = publications
+                .map((p, i) => `${i + 1};${p.name ?? ""};${p.doi};${p.publicationDate ?? ""};${p.totalCitations ?? 0}`)
+                .join("\n")
+              return `\uFEFF${header}${rows}`
+            }}
+          />
         </div>
       </div>
 

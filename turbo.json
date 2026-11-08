@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalEnv": ["NODE_ENV"],
+  "globalEnv": ["NODE_ENV", "CI", "PLAYWRIGHT_TEST_BASE_URL", "BASE_URL"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -16,6 +16,9 @@
     },
     "typecheck": {
       "dependsOn": ["^typecheck"]
+    },
+    "test:e2e": {
+      "cache": false
     },
     "dev": {
       "cache": false,
